@@ -24,13 +24,13 @@ const send = (
 
   return fetch(API_HOST + API_ROUTE + url, {
     method: method,
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: data ? JSON.stringify(data) : null,
     ...params,
   }).then((res) => {
     switch (res.status) {
       case 401:
-        window.location.assign('/connexion');
+        window.location.assign("/connexion");
         break;
       case 400:
       case 404:
@@ -57,10 +57,10 @@ const request = {
   ): Promise<object | null> => {
     let full_url = url;
     if (params) {
-      full_url += '?' + new URLSearchParams(params).toString();
+      full_url += "?" + new URLSearchParams(params).toString();
     }
 
-    return send('GET', full_url);
+    return send("GET", full_url);
   },
 
   /**
@@ -72,7 +72,7 @@ const request = {
    * @returns Promesse contenant le JSON de réponse
    */
   post: (url: string, body: object | FormData): Promise<object | null> => {
-    return send('POST', url, body);
+    return send("POST", url, body);
   },
 
   /**
@@ -84,14 +84,14 @@ const request = {
    * @returns Promesse contenant le JSON de réponse
    */
   put: (url: string, body: object | FormData): Promise<object | null> => {
-    return send('PUT', url, body);
+    return send("PUT", url, body);
   },
 
   /**
    * Envoie une requête GET et retourne le JSON dans une promesse.
    * Si la réponse est 401 Unauthorized, le client est redirigé vers la page de connexion.
    */
-  delete: (url: string): Promise<object | null> => send('DELETE', url),
+  delete: (url: string): Promise<object | null> => send("DELETE", url),
 };
 
 export default request;
