@@ -1,15 +1,21 @@
-import {Button, Grid, Paper, TextField, Typography, IconButton, InputAdornment, FormControl, InputLabel, OutlinedInput} from "@mui/material";
-import { useState } from "react";
+import React, { useState } from 'react';
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Button, Grid, Paper, TextField, Typography, IconButton, InputAdornment, FormControl, InputLabel, OutlinedInput } from '@mui/material';
+import { request } from '../../utils';
 
 export default function LoginPage(){
     const [formValues, setFormValues] = useState({
-        email: '',
+        mail: '',
         password: ''
     });
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleLogin = React.useCallback(() => {
+        request.post("/auth/login", formValues);
+    }, [formValues]);
 
     return(
         <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
@@ -22,8 +28,8 @@ export default function LoginPage(){
                         <TextField
                             label="Email"
                             variant="outlined"
-                            value={formValues.email}
-                            onChange={(e) => setFormValues({...formValues, email: e.target.value})}
+                            value={formValues.mail}
+                            onChange={(e) => setFormValues({...formValues, mail: e.target.value})}
                         />
                         <FormControl variant="outlined">
                             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
@@ -45,7 +51,7 @@ export default function LoginPage(){
                                 label="Password"
                             />
                         </FormControl>
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" onClick={handleLogin}>
                             Login
                         </Button>
                     </Grid>
