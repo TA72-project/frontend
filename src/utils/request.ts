@@ -16,7 +16,7 @@ const send = (
   url: string,
   body: object | FormData | null = null,
   params: object = {},
-): Promise<object> | null => {
+): Promise<object | null | undefined> => {
   const data =
     Object.prototype.toString.call(body) === FormData.prototype.toString()
       ? Object.fromEntries(body as FormData)
@@ -33,10 +33,11 @@ const send = (
         window.location.assign('/connexion');
         break;
       case 400:
+      case 404:
       case 422:
         return Promise.reject(res);
       default:
-        return res.json();
+        return res.json().catch(() => null);
     }
   });
 };
@@ -53,7 +54,7 @@ const request = {
   get: (
     url: string,
     params: Record<string, string> | null,
-  ): Promise<object> | null => {
+  ): Promise<object> => {
     let full_url = url;
     if (params) {
       full_url += '?' + new URLSearchParams(params).toString();
@@ -70,7 +71,7 @@ const request = {
    * @param body JSON a envoyer
    * @returns Promesse contenant le JSON de réponse
    */
-  post: (url: string, body: object | FormData): Promise<object> | null => {
+  post: (url: string, body: object | FormData): Promise<object> => {
     return send('POST', url, body);
   },
 
@@ -82,7 +83,7 @@ const request = {
    * @param body JSON a envoyer
    * @returns Promesse contenant le JSON de réponse
    */
-  put: (url: string, body: object | FormData): Promise<object> | null => {
+  put: (url: string, body: object | FormData): Promise<object> => {
     return send('PUT', url, body);
   },
 
@@ -90,7 +91,7 @@ const request = {
    * Envoie une requête GET et retourne le JSON dans une promesse.
    * Si la réponse est 401 Unauthorized, le client est redirigé vers la page de connexion.
    */
-  delete: (url: string): Promise<object> | null => send('DELETE', url),
+  delete: (url: string): Promise<object> => send('DELETE', url),
 };
 
 export default request;
