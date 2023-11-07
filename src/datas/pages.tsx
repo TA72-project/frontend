@@ -10,10 +10,35 @@ import PlanningPage from "../pages/planning/planningPage.tsx";
 import JourneysPage from "../pages/journeys/journeysPage.tsx";
 
 const pages = [
-    {text:'Tableau de bord',icons:<HomeIcon/>, path:'tableau_de_bord', element:<DashboardPage/>},
-    {text:'Missions',icons:<AssignmentIcon/>, path:'missions', element: <MissionsPage/>},
-    {text:'Planning',icons:<CalendarMonthIcon/>, path:'planning', element: <PlanningPage/>},
-    {text:'Trajets',icons:<MapIcon/>, path:'trajets', element: <JourneysPage/>},
-    {text:'Disponibilités', icons:<AssignmentTurnedInIcon/>, path:'disponibilites', element: <AvailabilityPage/>}
+  {
+    text: "Tableau de bord",
+    icons: <HomeIcon />,
+    path: "tableau_de_bord",
+    element: <DashboardPage />,
+  },
+  {
+    text: "Missions",
+    icons: <AssignmentIcon />,
+    path: "missions",
+    element: <MissionsPage />,
+  },
+  {
+    text: "Planning",
+    icons: <CalendarMonthIcon />,
+    path: "planning",
+    element: <PlanningPage />,
+  },
+  {
+    text: "Trajets",
+    icons: <MapIcon />,
+    path: "trajets",
+    element: <JourneysPage />,
+  },
+  {
+    text: "Disponibilités",
+    icons: <AssignmentTurnedInIcon />,
+    path: "disponibilites",
+    element: <AvailabilityPage />,
+  },
 ];
 export default pages;
