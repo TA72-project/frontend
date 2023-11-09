@@ -1,20 +1,15 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import NavBar from "./components/navbar/navBar.tsx";
 import pages from "./datas/pages.tsx";
 import LoginPage from "./pages/loginPage/loginPage.tsx";
-import {useEffect, useState} from "react";
 
 export default function App() {
-    const [showNavBar, setShowNavBar] = useState(true);
-
-    useEffect(() => {
-        const path = window.location.pathname;
-        setShowNavBar(path !== "/");
-    }, []);
+    const location = useLocation();
+    const showNavBar = location.pathname !== "/";
 
     return(
-        <BrowserRouter>
-            {<NavBar/>}
+        <>
+            {showNavBar && <NavBar />}
             <Routes>
                 {pages.map((element) => (
                     <Route
@@ -25,6 +20,6 @@ export default function App() {
                 ))}
                 <Route path="/" element={<LoginPage />} />
             </Routes>
-        </BrowserRouter>
+        </>
     )
 }
