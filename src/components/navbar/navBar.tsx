@@ -23,8 +23,24 @@ export default function NavBar() {
 
   const navigate = useNavigate();
   const handleDrawerOpen = () => {
-    setOpen(!open);
+    setOpen((prevState)=>!prevState);
   };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/auth/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.ok) {
+        navigate("/login");
+      } else {
+        console.error("Échec de la déconnexion");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion :", error);
+    }
+  }
 
   return (
     <React.Fragment>
@@ -68,7 +84,7 @@ export default function NavBar() {
         </List>
         <List sx={{ marginTop: "auto" }}>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={handleLogout}>
               <ListItemIcon>
                 <PowerSettingsNewIcon />
               </ListItemIcon>
