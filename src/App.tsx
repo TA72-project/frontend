@@ -14,7 +14,7 @@ export default function App() {
 
     return(
         <BrowserRouter>
-            {showNavBar && <NavBar/>}
+            {<NavBar/>}
             <Routes>
                 {pages.map((element) => (
                     <Route
