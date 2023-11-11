@@ -5,7 +5,7 @@ import 'dayjs/locale/fr';
 import { useEffect, useState } from "react";
 import { createMissionType, getMissionType, updateMissionType } from "../../hook/missionType";
 import { formatPositiveInt } from "../../utils/formatterUtils";
-import { useAuth } from "../../components/template/authProvider";
+import { useAuth } from "../../components/template/authContextProvider";
 
 interface missionTypeApi {
     name: string,

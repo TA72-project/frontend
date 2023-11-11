@@ -25,7 +25,7 @@ import pages from "../../datas/pages.tsx";
 import {useNavigate} from "react-router-dom";
 import { red } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
-import {useAuth} from "./authProvider";
+import {useAuth} from "./authContextProvider";
 import { link } from '../../type/common.ts';
 import PageTitle from '../pagetitle/pageTitle.tsx';
 import { formatUserAvatar, formatUserName } from '../../utils/formatterUtils.ts';
@@ -135,7 +135,7 @@ export default function Template({ children, selectedIndex, breadcumbs }: Props)
     };
 
     const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
+        if (reason === 'clickaway' || event != undefined) {
           return;
         }
     

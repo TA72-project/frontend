@@ -2,33 +2,12 @@ import React, {useEffect, useState} from "react";
 import {login, logout} from "../../hook/auth";
 import {useNavigate} from "react-router";
 import { User } from "../../type/model";
+import { AuthContext } from "./authContextProvider";
 
 interface Props{
     children: JSX.Element | string
 }
-
-interface AuthContextType{
-    currentUser: User | null
-    onLogin?: (email: string, password: string) => Promise<void>;
-    onLogout?: () => Promise<void>;
-    isLoggedIn: boolean;
-    newLogin?: boolean;
-    isSaved: boolean;
-    closeRecord: (status:boolean) => void;
-}
-
-const AuthContext = React.createContext<AuthContextType>({
-    currentUser: null,
-    isLoggedIn: false,
-    isSaved: false,
-    closeRecord: () => {},
-});
-
-export const useAuth = () => {
-    return React.useContext(AuthContext);
-};
-
-export const AuthProvider = ({ children }: Props) => {
+const AuthProvider = ({ children }: Props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [isSaved, setIsSaved] = useState(false);
     const [newLogin, setNewLogin] = useState(false);
@@ -80,3 +59,5 @@ export const AuthProvider = ({ children }: Props) => {
         </AuthContext.Provider>
     );
 };
+
+export default AuthProvider;

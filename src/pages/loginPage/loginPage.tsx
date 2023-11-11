@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import React from "react";
-import { useAuth } from "../../components/template/authProvider";
+import { useAuth } from "../../components/template/authContextProvider";
 
 export default function LoginPage(){
     const {onLogin, onLogout, isLoggedIn} = useAuth();
@@ -35,7 +35,7 @@ export default function LoginPage(){
             onLogout().catch(() => {});
             localStorage.removeItem("currentUser");
         }
-    }, []);
+    }, [onLogout, isLoggedIn]);
 
     return(
         <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
