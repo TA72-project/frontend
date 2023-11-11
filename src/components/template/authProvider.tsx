@@ -19,11 +19,16 @@ export const AuthProvider = ({ children }: Props) => {
 
     const handleLogin = async (email: string, password: string): Promise<void> => {
         const res = await login(email, password);
-        setCurrentUser(res);
-        setIsLoggedIn(true);
-        setNewLogin(true);
-        localStorage.setItem("currentUser", JSON.stringify(res));
-        navigate("tableau_de_bord");
+        if(res.role === "Manager") {
+            setCurrentUser(res);
+            setIsLoggedIn(true);
+            setNewLogin(true);
+            localStorage.setItem("currentUser", JSON.stringify(res));
+            navigate("tableau_de_bord");
+        } else {
+            localStorage.setItem("blockUser", '1');
+            navigate("/");
+        }        
     };
 
     const handleLogout = async (): Promise<void> => {

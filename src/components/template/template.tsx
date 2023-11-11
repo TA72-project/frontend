@@ -135,7 +135,7 @@ export default function Template({ children, selectedIndex, breadcumbs }: Props)
     };
 
     const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway' || event != undefined) {
+        if (reason === 'clickaway' && event) {
           return;
         }
     
