@@ -28,7 +28,7 @@ export default function NavBar() {
   };
 
   const handleLogout = async () =>
-    await request.get("/auth/logout", null).then(() => {
+    await request.get("/auth/logout").then(() => {
       navigate("/login");
     });
 

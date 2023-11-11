@@ -54,7 +54,7 @@ const request = {
    */
   get: (
     url: string,
-    params: Record<string, string> | null,
+    params: Record<string, string> | null = null,
   ): Promise<object | null> => {
     let full_url = url;
     if (params) {
