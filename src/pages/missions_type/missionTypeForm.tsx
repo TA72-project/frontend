@@ -22,6 +22,7 @@ export default function MissionTypeForm(){
         people_required: 0,
         minutes_duration: 0,
     });
+    const [isUpdating, setIsUpdating] = useState(false);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -46,6 +47,7 @@ export default function MissionTypeForm(){
     useEffect(() => {
         if(id != undefined) {
             loadMissionType(parseInt(id));
+            setIsUpdating(true);
         }        
     }, [id]);
 
@@ -58,7 +60,7 @@ export default function MissionTypeForm(){
                             <Typography variant="h5" gutterBottom align="center" component="div">
                                 <strong>
                                     {
-                                        !!id ? "Modification" : "Création" 
+                                        isUpdating ? "Modification" : "Création" 
                                     }
                                 </strong>
                             </Typography>

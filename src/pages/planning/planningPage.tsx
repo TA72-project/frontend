@@ -8,18 +8,30 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import TaskCard from '../../components/taskCard';
+import { EventContentArg } from '@fullcalendar/core/index.js';
 
 // More details on : https://fullcalendar.io/docs#toc
 
-let todayStr = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
+const todayStr = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
-let threeDayLater = new Date();
+const threeDayLater = new Date();
 threeDayLater.setDate(threeDayLater.getDate() + 2);
 
-let yesterday = new Date();
+const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 
-const INITIAL_EVENTS = [
+type Event = {
+    id: number,
+    title: string,
+    start: string,
+    end: string,
+    url: string,
+    extendedProps?: {
+        department: string
+    },
+}
+
+const INITIAL_EVENTS: Event[] = [
     {
         id: 1,
         title: 'Rendre visite au patient 2 avec 2 infirmières',
@@ -211,7 +223,7 @@ function renderSidebar() {
 }
 
 function loadTodayEvent() {
-    const event: any[] = [];
+    const event: Event[] = [];
     INITIAL_EVENTS.forEach(e => {
         if(e.start.replace(/T.*$/, '') === todayStr || 
             (new Date(e.start.replace(/T.*$/, '')) < new Date(todayStr) && new Date(e.end.replace(/T.*$/, '')) >= new Date(todayStr))
@@ -222,7 +234,7 @@ function loadTodayEvent() {
     return event;
 }
 
-function renderEventContent(eventInfo: any) {
+function renderEventContent(eventInfo:EventContentArg) {
   return (
     <>
       <i style={{margin: '5px'}}>{eventInfo.event.title}</i>
@@ -230,7 +242,7 @@ function renderEventContent(eventInfo: any) {
   );
 }
 
-function renderSidebarEvent(event: any) {
+function renderSidebarEvent(event:Event) {
   return (
     <TaskCard key={event.id} title={event.title} start={event.start} end={event.end} url={event.url}/>
   );
