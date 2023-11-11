@@ -7,7 +7,7 @@ import { AuthContext } from "./authContextProvider";
 interface Props{
     children: JSX.Element | string
 }
-const AuthProvider = ({ children }: Props) => {
+export const AuthProvider = ({ children }: Props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [isSaved, setIsSaved] = useState(false);
     const [newLogin, setNewLogin] = useState(false);
@@ -59,5 +59,3 @@ const AuthProvider = ({ children }: Props) => {
         </AuthContext.Provider>
     );
 };
-
-export default AuthProvider;
