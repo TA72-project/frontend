@@ -5,7 +5,7 @@ import LoginPage from "./pages/loginPage/loginPage.tsx";
 
 export default function App() {
   const location = useLocation();
-  const showNavBar = location.pathname !== "/";
+  const showNavBar = location.pathname !== "/login";
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function App() {
             element={element.element}
           />
         ))}
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
   );

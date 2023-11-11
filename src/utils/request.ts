@@ -31,7 +31,7 @@ const send = (
   }).then((res) => {
     switch (res.status) {
       case 401:
-        window.location.assign("/");
+        window.location.assign("/login");
         break;
       case 400:
       case 404:

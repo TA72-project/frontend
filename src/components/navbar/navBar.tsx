@@ -29,7 +29,7 @@ export default function NavBar() {
 
   const handleLogout = async () =>
     await request.get("/auth/logout", null).then(() => {
-      navigate("/");
+      navigate("/login");
     });
 
   return (
