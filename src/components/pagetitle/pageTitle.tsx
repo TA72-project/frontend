@@ -20,7 +20,7 @@ export default function PageTitle({links} : Props) {
                 underline="hover"
                 sx={{ display: 'flex', alignItems: 'center' }}
                 color="inherit"
-                href={link.path}
+                href={'/' + link.path}
               >
                   {links.length > 1 && index == links.length - 1 ? '' : link.icons}
                   {link.text}

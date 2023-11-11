@@ -14,7 +14,12 @@ type MissionTypePostApi = {
     minutes_duration: number;
 }
 
-export const getAllMissionType = async (page: number, perPage: number): Promise<MissionType[]> => {
+type resAllMissionGrid = {
+    data: MissionType[],
+    total: number,
+}
+
+export const getAllMissionType = async (page: number, perPage: number): Promise<resAllMissionGrid> => {
     const apiRes = await missionTypeApi.get('', {
         params: {
           page: page,
@@ -32,7 +37,10 @@ export const getAllMissionType = async (page: number, perPage: number): Promise<
                 minutesDuration: mt.minutes_duration,
             })
         });
-        return missionTypes;
+        return {
+            data: missionTypes,
+            total: apiRes.data.total,
+        };
     }
     throw Error('Erreur de connexion');    
 };
@@ -60,6 +68,14 @@ export const createMissionType = async (missionType:MissionTypePostApi): Promise
 
 export const updateMissionType = async (id:number, missionType:MissionTypePostApi): Promise<number> => {
     const apiRes = await missionTypeApi.put('/' + id, missionType);
+    if(apiRes.status === 200){
+        return apiRes.status;
+    }
+    throw Error('Erreur de connexion');    
+};
+
+export const deleteMissionType = async (id:number): Promise<number> => {
+    const apiRes = await missionTypeApi.delete('/' + id);
     if(apiRes.status === 200){
         return apiRes.status;
     }
