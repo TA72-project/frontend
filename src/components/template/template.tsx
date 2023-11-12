@@ -23,7 +23,6 @@ import pages from "../../datas/pages.tsx";
 import {useNavigate} from "react-router-dom";
 import { red } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
-import { link } from '../../type/common.ts';
 import PageTitle from '../pagetitle/pageTitle.tsx';
 import {useAuth} from "../../context/auth/authContext.ts";
 import {ReactElement} from "react";
@@ -103,6 +102,13 @@ interface Props{
     selectedIndex: number,
     breadcumbs: number[]
 }
+
+interface link {
+    text: string;
+    icons: ReactElement;
+    path: string;
+}
+
 export default function Template({ children, selectedIndex, breadcumbs }: Props) {
 
     const {logout} = useAuth();
