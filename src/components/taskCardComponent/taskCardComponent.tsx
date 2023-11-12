@@ -2,14 +2,14 @@ import { Avatar, Divider, List, ListItemAvatar, ListItemButton, ListItemText} fr
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-type Props = {
-    title: string,
-    start: string,
-    end: string,
-    url: string,
+interface ITaskCardComponentProps {
+    title: string;
+    start: string;
+    end: string;
+    url: string;
 }
 
-export default function TaskCardComponent({title, start, end, url} : Props) {
+export default function TaskCardComponent({title, start, end, url} : ITaskCardComponentProps) {
     const navigate = useNavigate();
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
