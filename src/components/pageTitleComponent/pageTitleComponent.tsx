@@ -10,7 +10,7 @@ interface Props {
     links: link[];
 }
 
-export default function PageTitle({links}: Props) {
+export default function PageTitleComponent({links}: Props) {
     return (
         <div role="presentation">
             <Breadcrumbs separator="›" aria-label="breadcrumb">

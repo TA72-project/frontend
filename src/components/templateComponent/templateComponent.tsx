@@ -23,7 +23,7 @@ import pages from "../../datas/pages.tsx";
 import {useNavigate} from "react-router-dom";
 import { red } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
-import PageTitle from '../pagetitle/pageTitle.tsx';
+import PageTitleComponent from '../pageTitleComponent/pageTitleComponent.tsx';
 import {useAuth} from "../../context/auth/authContext.ts";
 import {ReactElement} from "react";
 
@@ -109,7 +109,7 @@ interface link {
     path: string;
 }
 
-export default function Template({ children, selectedIndex, breadcumbs }: Props) {
+export default function TemplateComponent({ children, selectedIndex, breadcumbs }: Props) {
 
     const {logout} = useAuth();
     const navigate = useNavigate();
@@ -228,7 +228,7 @@ export default function Template({ children, selectedIndex, breadcumbs }: Props)
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-                <PageTitle links={links}></PageTitle>
+                <PageTitleComponent links={links}></PageTitleComponent>
                 {children}
             </Box>
         </Box>

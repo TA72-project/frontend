@@ -7,7 +7,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import TaskCard from '../../components/taskCard';
+import TaskCardComponent from '../../components/taskCardComponent/taskCardComponent.tsx';
 import { EventContentArg } from '@fullcalendar/core/index.js';
 
 // More details on : https://fullcalendar.io/docs#toc
@@ -244,6 +244,6 @@ function renderEventContent(eventInfo:EventContentArg) {
 
 function renderSidebarEvent(event:Event) {
   return (
-    <TaskCard key={event.id} title={event.title} start={event.start} end={event.end} url={event.url}/>
+    <TaskCardComponent key={event.id} title={event.title} start={event.start} end={event.end} url={event.url}/>
   );
 }

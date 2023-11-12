@@ -9,7 +9,7 @@ type Props = {
     url: string,
 }
 
-export default function TaskCard({title, start, end, url} : Props) {
+export default function TaskCardComponent({title, start, end, url} : Props) {
     const navigate = useNavigate();
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
