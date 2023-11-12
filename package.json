@@ -21,17 +21,12 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.3",
     "@mui/x-data-grid": "^6.16.3",
     "@mui/x-date-pickers": "^6.17.0",
-    "axios": "^1.6.0",
     "dayjs": "^1.11.10",
-    "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
-    "react-jwt": "^1.2.0",
     "react-router-dom": "^6.17.0",
-    "styled-components": "^6.1.0",
-    "sweetalert2": "^11.9.0",
-    "sweetalert2-react-content": "^5.0.7"
+    "styled-components": "^6.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

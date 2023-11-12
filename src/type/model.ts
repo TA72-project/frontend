@@ -6,10 +6,3 @@ export interface User {
     phone: string;
     role: string;
 }
-
-export interface MissionType {
-    id: number;
-    name: string;
-    peopleRequired: number;
-    minutesDuration: number;
-}

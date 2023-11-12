@@ -15,12 +15,13 @@ import Template from "../components/template/template.tsx";
 import Profile from "../pages/profile/profile.tsx";
 import MissionsTypePage from "../pages/missions_type/missionsTypePage.tsx";
 import MissionTypeForm from "../pages/missions_type/missionTypeForm.tsx";
+import {ReactElement} from "react";
 
 type page = {
     text: string;
-    icons: JSX.Element;
+    icons: ReactElement;
     path: string;
-    element: JSX.Element;
+    element: ReactElement;
 };
 
 const pages : page[] = [

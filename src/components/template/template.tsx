@@ -10,7 +10,6 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import StarIcon from '@mui/icons-material/Star';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
@@ -18,17 +17,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Avatar, Button, Snackbar, Tooltip } from '@mui/material';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { Avatar, Button, Tooltip } from '@mui/material';
 import Logo from '../../assets/react.svg';
 import pages from "../../datas/pages.tsx";
 import {useNavigate} from "react-router-dom";
 import { red } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
-import {useAuth} from "./authContextProvider";
 import { link } from '../../type/common.ts';
 import PageTitle from '../pagetitle/pageTitle.tsx';
-import { formatUserAvatar, formatUserName } from '../../utils/formatterUtils.ts';
+import {useAuth} from "../../context/auth/authContext.ts";
+import {ReactElement} from "react";
 
 const drawerWidth = 240;
 
@@ -58,7 +56,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
 }));
 
@@ -102,28 +99,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 interface Props{
-    children: JSX.Element | string,
+    children: ReactElement | string,
     selectedIndex: number,
     breadcumbs: number[]
 }
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-        props,
-        ref,
-    ) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 export default function Template({ children, selectedIndex, breadcumbs }: Props) {
-    const { newLogin, currentUser, isSaved, closeRecord} = useAuth();
+
+    const {logout} = useAuth();
+    const navigate = useNavigate();
+    const theme = useTheme();
 
     const links: link[] = [];
+
     breadcumbs.forEach(b => links.push(pages[b]));
-    
-    const theme = useTheme();
-    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
-    const [isNewLogin, setIsNewLogin] = React.useState(newLogin);
     const [selectedTabIndex, setSelectedTabIndex] = React.useState(selectedIndex);
 
     const handleDrawerOpen = () => {
@@ -134,43 +123,9 @@ export default function Template({ children, selectedIndex, breadcumbs }: Props)
         setOpen(false);
     };
 
-    const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway' && event) {
-          return;
-        }
-    
-        setIsNewLogin(false);
-    };
-
-    React.useEffect(() => {
-        const timer = setTimeout(() => {
-            closeRecord(false);
-        }, 3000);
-        return () => clearTimeout(timer);
-    }, [closeRecord]);
-
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <Snackbar
-                open={isNewLogin}
-                autoHideDuration={3000}
-                onClose={handleCloseSnackbar}
-                anchorOrigin={{vertical: 'bottom', horizontal:'right' }}
-            >
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Bienvenue {formatUserName(currentUser)}
-                </Alert>
-            </Snackbar>
-            <Snackbar
-                open={isSaved}
-                autoHideDuration={1000}
-                anchorOrigin={{vertical: 'bottom', horizontal:'right' }}
-            >
-                <Alert severity="success" sx={{ width: '100%' }}>
-                    Enregistrement effectué avec succès !
-                </Alert>
-            </Snackbar>
             <AppBar position="fixed" open={open}>
                 <Toolbar>
                     <IconButton
@@ -184,15 +139,11 @@ export default function Template({ children, selectedIndex, breadcumbs }: Props)
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap sx={{ flexGrow: 1, mr: 'auto' }} component="div">
-                        {formatUserName(currentUser)}
                     </Typography>
-                    <StarIcon></StarIcon>
                     <Button variant="text" onClick={() => navigate("/profil")}>
                         <Avatar sx={{ bgcolor: 'white', color: 'black' }} aria-label="recipe">
-                            {formatUserAvatar(currentUser)}
                         </Avatar>
                     </Button>
-                    <StarIcon></StarIcon>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -253,9 +204,7 @@ export default function Template({ children, selectedIndex, breadcumbs }: Props)
                                 justifyContent: open ? 'initial' : 'center',
                                 px: 2.5,
                             }}
-                            onClick={() => {
-                                navigate('/')
-                            }}
+                            onClick={logout}
                         >
                             <ListItemIcon
                                 sx={{

@@ -1,18 +1,32 @@
-import { Box, Tab, Tabs} from "@mui/material";
+import {ChangeEvent, useState} from 'react';
+import {Box, Tab, Tabs} from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import '../../assets/css/mission.css';
 import 'dayjs/locale/fr';
+import AccountTabComponent from '../../components/accountComponents/accountTabComponent/accountTabComponent';
+import SecurityTabComponent from "../../components/accountComponents/securityTabComponent/securityTabComponent.tsx";
 
-export default function Profile(){
+export default function Profile() {
+    const [activeTab, setActiveTab] = useState(0);
 
-    return(
+    const tabs = [
+        {label: 'Compte', icon: <PersonIcon/>, component: <AccountTabComponent/>},
+        {label: 'Sécurité', icon: <PersonIcon/>, component: <SecurityTabComponent/>},
+    ];
+
+    const handleTabChange = (_: ChangeEvent<{}>, newValue: number) => {
+        setActiveTab(newValue);
+    };
+
+    return (
         <div>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={1} onChange={() => console.log("Test")} aria-label="basic tabs example">
-                    <Tab label="Compte" icon={<PersonIcon />} iconPosition="start" aria-controls= "tab1" />
-                    <Tab label="Sécurité" icon={<PersonIcon />} iconPosition="start" aria-controls= "tab1"  />
+            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                <Tabs value={activeTab} onChange={handleTabChange} aria-label="basic tabs example">
+                    {tabs.map((tab, index) => (
+                        <Tab key={index} label={tab.label} icon={tab.icon} iconPosition="start" />
+                    ))}
                 </Tabs>
             </Box>
+            {tabs[activeTab].component}
         </div>
-    )
+    );
 }
