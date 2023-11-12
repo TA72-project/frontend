@@ -3,7 +3,7 @@ import '../../assets/css/mission.css';
 import { useNavigate, useParams } from "react-router-dom";
 import 'dayjs/locale/fr';
 import { useEffect, useState } from "react";
-import { createMissionType, getMissionType, updateMissionType } from "../../hook/missionTypes.ts";
+import { createMissionType, getMissionType, updateMissionType } from "../../requests/missionTypes.ts";
 import { formatPositiveInt } from "../../utils/formatterUtils";
 import {IMissionType} from "./missionsTypePage.tsx";
 

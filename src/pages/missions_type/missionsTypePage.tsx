@@ -4,7 +4,7 @@ import '../../assets/css/mission.css';
 import { DataGrid, GridColDef, GridRowParams, GridActionsCellItem, GridToolbar, GridPaginationModel} from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
 import { Button, Box } from "@mui/material";
-import {deleteMissionType, getAllMissionType} from "../../hook/missionTypes.ts";
+import {deleteMissionType, getAllMissionType} from "../../requests/missionTypes.ts";
 import { useEffect, useState } from "react";
 
 export interface IIdMissionType extends IMissionType {
