@@ -10,7 +10,9 @@ interface ITaskCardComponentProps {
 }
 
 export default function TaskCardComponent({title, start, end, url} : ITaskCardComponentProps) {
+
     const navigate = useNavigate();
+
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             <ListItemButton alignItems="flex-start" onClick={() => navigate(url)}>
@@ -29,7 +31,7 @@ export default function TaskCardComponent({title, start, end, url} : ITaskCardCo
                     }
                 />
             </ListItemButton>
-            <Divider variant="inset" component="li" />
+            <Divider variant="inset" />
         </List>
     );
 }
