@@ -6,6 +6,7 @@ import LoginPage from "./pages/loginPage/loginPage.tsx";
 import pages from './datas/pages.tsx';
 import {AuthProvider} from './context/auth/authProvider.tsx';
 import {SnackbarProvider} from "./context/snackbar/snackbarProvider.tsx";
+import NotFoundPage from "./pages/notFound/notFoundPage.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                             <Route key={element.text} path={"/" + element.path} element={element.element}/>
                         ))}
                         <Route path="/login" element={<LoginPage/>}/>
+                        <Route path="*" element={<NotFoundPage/>}/>
                     </Routes>
                 </SnackbarProvider>
             </AuthProvider>
