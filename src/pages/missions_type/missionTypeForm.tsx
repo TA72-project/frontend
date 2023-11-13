@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import 'dayjs/locale/fr';
 import { useEffect, useState } from "react";
 import { createMissionType, getMissionType, updateMissionType } from "../../requests/missionTypes.ts";
-import { formatPositiveInt } from "../../utils/formatterUtils";
 import {IMissionType} from "./missionsTypePage.tsx";
 
 export default function MissionTypeForm(){
@@ -78,7 +77,8 @@ export default function MissionTypeForm(){
                                 style={{width:'100%'}}
                                 type="number"
                                 value={formValues.minutes_duration}
-                                onChange={(e) => setFormValues({...formValues, minutes_duration: formatPositiveInt(e.target.value)})}
+                                InputProps={{ inputProps: { min: 0 } }}
+                                onChange={(e) => setFormValues({...formValues, minutes_duration: parseInt(e.target.value)})}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -89,7 +89,8 @@ export default function MissionTypeForm(){
                                 style={{width:'100%'}}
                                 type="number"
                                 value={formValues.people_required}
-                                onChange={(e) => setFormValues({...formValues, people_required: formatPositiveInt(e.target.value)})}
+                                InputProps={{ inputProps: { min: 0 } }}
+                                onChange={(e) => setFormValues({...formValues, people_required: parseInt(e.target.value)})}
                             />
                         </Grid>
                     </Grid>
