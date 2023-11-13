@@ -22,7 +22,7 @@ export default function MissionTypeForm(){
         event.preventDefault();
         try {
             id != undefined ? await updateMissionType(parseInt(id), formValues.name, formValues.people_required, formValues.minutes_duration) : await createMissionType(formValues.name, formValues.people_required, formValues.minutes_duration);
-            navigate('/missions_type');
+            navigate('/missionsType');
         } catch (error){
             console.error(error)
         }

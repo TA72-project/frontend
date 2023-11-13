@@ -44,7 +44,7 @@ export default function LoginPage() {
                             <OutlinedInput
                                 id="outlined-adornment-password"
                                 type={showPassword ? 'text' : 'password'}
-                                onChange={(e) => setFormValues({...formValues, password: e.target.value})}
+                                onChange={(event) => setFormValues({...formValues, password: event.target.value})}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton

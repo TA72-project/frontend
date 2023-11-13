@@ -13,8 +13,8 @@ import JourneysPage from "../pages/journeys/journeysPage.tsx";
 import MissionInfoPage from "../pages/missions/missionInfoPage.tsx";
 import NavbarComponent from "../components/navbarComponent/navbarComponent.tsx";
 import Profile from "../pages/profile/profile.tsx";
-import MissionsTypePage from "../pages/missions_type/missionsTypePage.tsx";
-import MissionTypeForm from "../pages/missions_type/missionTypeForm.tsx";
+import MissionsTypePage from "../pages/missionsType/missionsTypePage.tsx";
+import MissionTypeForm from "../pages/missionsType/missionTypeForm.tsx";
 import {ReactElement} from "react";
 
 type page = {
@@ -27,7 +27,7 @@ type page = {
 const pages : page[] = [
     {text:'Tableau de bord',icons:<HomeIcon/>, path:'tableau_de_bord', element:<NavbarComponent selectedIndex={0} breadcumbs={[0]}><DashboardPage/></NavbarComponent>},
     {text:'Missions',icons:<AssignmentIcon/>, path:'missions', element: <NavbarComponent selectedIndex={1} breadcumbs={[1]}><MissionsPage/></NavbarComponent>},
-    {text:'Type de mission',icons:<CollectionsBookmarkIcon/>, path:'missions_type', element: <NavbarComponent selectedIndex={2} breadcumbs={[2]}><MissionsTypePage/></NavbarComponent>},
+    {text:'Type de mission',icons:<CollectionsBookmarkIcon/>, path:'missionsType', element: <NavbarComponent selectedIndex={2} breadcumbs={[2]}><MissionsTypePage/></NavbarComponent>},
     {text:'Planning',icons:<CalendarMonthIcon/>, path:'planning', element: <NavbarComponent selectedIndex={3} breadcumbs={[3]}><PlanningPage/></NavbarComponent>},
     {text:'Trajets',icons:<MapIcon/>, path:'trajets', element: <NavbarComponent selectedIndex={4} breadcumbs={[4]}><JourneysPage/></NavbarComponent>},
     {text:'Disponibilités', icons:<AssignmentTurnedInIcon/>, path:'disponibilites', element: <NavbarComponent selectedIndex={5} breadcumbs={[5]}><AvailabilityPage/></NavbarComponent>},
