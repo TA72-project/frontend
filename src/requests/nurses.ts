@@ -4,7 +4,7 @@ export const getAllNurses = async (page: number, perPage: number) => {
     try {
         return await request.get(`/nurses?page=${page}&per_page=${perPage}`);
     } catch (error) {
-        console.eror(error);
+        console.error(error);
     }
 };
 
