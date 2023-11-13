@@ -109,7 +109,7 @@ interface link {
     path: string;
 }
 
-export default function TemplateComponent({ children, selectedIndex, breadcumbs }: Props) {
+export default function NavbarComponent({ children, selectedIndex, breadcumbs }: Props) {
 
     const {logout} = useAuth();
     const navigate = useNavigate();

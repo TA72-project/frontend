@@ -11,7 +11,7 @@ import MissionsPage from "../pages/missions/missionsPage.tsx";
 import PlanningPage from "../pages/planning/planningPage.tsx";
 import JourneysPage from "../pages/journeys/journeysPage.tsx";
 import MissionInfoPage from "../pages/missions/missionInfoPage.tsx";
-import TemplateComponent from "../components/templateComponent/templateComponent.tsx";
+import NavbarComponent from "../components/navbarComponent/navbarComponent.tsx";
 import Profile from "../pages/profile/profile.tsx";
 import MissionsTypePage from "../pages/missions_type/missionsTypePage.tsx";
 import MissionTypeForm from "../pages/missions_type/missionTypeForm.tsx";
@@ -25,15 +25,15 @@ type page = {
 };
 
 const pages : page[] = [
-    {text:'Tableau de bord',icons:<HomeIcon/>, path:'tableau_de_bord', element:<TemplateComponent selectedIndex={0} breadcumbs={[0]}><DashboardPage/></TemplateComponent>},
-    {text:'Missions',icons:<AssignmentIcon/>, path:'missions', element: <TemplateComponent selectedIndex={1} breadcumbs={[1]}><MissionsPage/></TemplateComponent>},
-    {text:'Type de mission',icons:<CollectionsBookmarkIcon/>, path:'missions_type', element: <TemplateComponent selectedIndex={2} breadcumbs={[2]}><MissionsTypePage/></TemplateComponent>},
-    {text:'Planning',icons:<CalendarMonthIcon/>, path:'planning', element: <TemplateComponent selectedIndex={3} breadcumbs={[3]}><PlanningPage/></TemplateComponent>},
-    {text:'Trajets',icons:<MapIcon/>, path:'trajets', element: <TemplateComponent selectedIndex={4} breadcumbs={[4]}><JourneysPage/></TemplateComponent>},
-    {text:'Disponibilités', icons:<AssignmentTurnedInIcon/>, path:'disponibilites', element: <TemplateComponent selectedIndex={5} breadcumbs={[5]}><AvailabilityPage/></TemplateComponent>},
-    {text:'Détails de mission', icons:<AssignmentIcon/>, path:'detail_mission/:id', element: <TemplateComponent selectedIndex={1} breadcumbs={[1,6]}><MissionInfoPage/></TemplateComponent>},
-    {text:'Mon profile', icons:<PersonIcon/>, path:'profil', element: <TemplateComponent selectedIndex={-1} breadcumbs={[7]}><Profile/></TemplateComponent>},
-    {text:'Formulaire type de mission',icons:<CollectionsBookmarkIcon/>, path:'mission_type_form/:id?', element: <TemplateComponent selectedIndex={2} breadcumbs={[2,8]}><MissionTypeForm/></TemplateComponent>},
+    {text:'Tableau de bord',icons:<HomeIcon/>, path:'tableau_de_bord', element:<NavbarComponent selectedIndex={0} breadcumbs={[0]}><DashboardPage/></NavbarComponent>},
+    {text:'Missions',icons:<AssignmentIcon/>, path:'missions', element: <NavbarComponent selectedIndex={1} breadcumbs={[1]}><MissionsPage/></NavbarComponent>},
+    {text:'Type de mission',icons:<CollectionsBookmarkIcon/>, path:'missions_type', element: <NavbarComponent selectedIndex={2} breadcumbs={[2]}><MissionsTypePage/></NavbarComponent>},
+    {text:'Planning',icons:<CalendarMonthIcon/>, path:'planning', element: <NavbarComponent selectedIndex={3} breadcumbs={[3]}><PlanningPage/></NavbarComponent>},
+    {text:'Trajets',icons:<MapIcon/>, path:'trajets', element: <NavbarComponent selectedIndex={4} breadcumbs={[4]}><JourneysPage/></NavbarComponent>},
+    {text:'Disponibilités', icons:<AssignmentTurnedInIcon/>, path:'disponibilites', element: <NavbarComponent selectedIndex={5} breadcumbs={[5]}><AvailabilityPage/></NavbarComponent>},
+    {text:'Détails de mission', icons:<AssignmentIcon/>, path:'detail_mission/:id', element: <NavbarComponent selectedIndex={1} breadcumbs={[1,6]}><MissionInfoPage/></NavbarComponent>},
+    {text:'Mon profile', icons:<PersonIcon/>, path:'profil', element: <NavbarComponent selectedIndex={-1} breadcumbs={[7]}><Profile/></NavbarComponent>},
+    {text:'Formulaire type de mission',icons:<CollectionsBookmarkIcon/>, path:'mission_type_form/:id?', element: <NavbarComponent selectedIndex={2} breadcumbs={[2,8]}><MissionTypeForm/></NavbarComponent>},
 ];
 
 export default pages;

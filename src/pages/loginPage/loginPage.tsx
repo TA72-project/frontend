@@ -11,7 +11,7 @@ import {
     OutlinedInput,
     Divider,
 } from "@mui/material";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {useAuth} from "../../context/auth/authContext.ts";
