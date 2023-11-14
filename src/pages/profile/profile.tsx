@@ -13,7 +13,7 @@ export default function Profile() {
         {label: 'Sécurité', icon: <PersonIcon/>, component: <SecurityTabComponent/>},
     ];
 
-    const handleTabChange = (_: ChangeEvent<{}>, newValue: number) => {
+    const handleTabChange = (_: ChangeEvent<unknown>, newValue: number) => {
         setActiveTab(newValue);
     };
 
