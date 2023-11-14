@@ -1,7 +1,7 @@
 import {FC, ReactNode, useCallback, useState} from "react";
 import {useNavigate} from "react-router";
-import {request} from "../../utils";
 import AuthContext, {IFormValues} from "./authContext.ts";
+import {login, logout} from "../../requests/auth.ts";
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
@@ -11,17 +11,21 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         password: "",
     });
 
+    const [isLogin, setIsLogin] = useState(false);
+
     const handleLogin = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
-        request.post("/auth/login", formValues).then(()=>{
+        login(formValues.mail,formValues.password).then(()=>{
             navigate("/tableau_de_bord");
+            setIsLogin((prevState)=>!prevState);
         });
         },
         [formValues, navigate]
     );
 
-    const handleLogout = async () => await request.get("/auth/logout").then(() => {
+    const handleLogout = async () => await logout().then(() => {
         navigate("/login");
+        setIsLogin((prevState)=>!prevState);
     });
 
     const sharedValues = {
@@ -29,6 +33,8 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         logout: handleLogout,
         formValues: formValues,
         setFormValues: setFormValues,
+        isLogin: isLogin,
+        setIsLogin: setIsLogin,
     };
 
     return (
