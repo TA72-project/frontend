@@ -1,8 +1,51 @@
 import {request} from "../utils";
 
+interface IMission {
+    data: Array<{
+        id: number,
+        desc: string | null,
+        start: string,
+        end: string,
+        recurrence_days: number | null,
+        people_required: number,
+        minutes_duration: number,
+        id_mission_type: number,
+        id_patient: number,
+        mission_type: {
+            id: number,
+            name: string,
+            perople_required: number,
+            minutes_duration: number
+        },
+        patient: {
+            id: number,
+            id_user: number,
+            id_address: number,
+            fname: string,
+            lname: string,
+            mail: string,
+            phone: string | null,
+            address: {
+                id: number,
+                number: number | null,
+                street_name: string,
+                postcode: string,
+                city_name: string,
+                complement: string | null,
+                id_zone: number,
+            }
+        }
+    }>,
+    page: number,
+    per_page: number,
+    total: number,
+    total_page: number,
+}
+
 export const getAllMissions = async (page: number, perPage: number) => {
     try {
-        return await request.get(`/missions?page=${page}&per_page=${perPage}`);
+        const response = await request.get(`/missions?page=${page}&per_page=${perPage}`);
+        return response as IMission | null;
     } catch (error) {
         console.error(error);
     }
