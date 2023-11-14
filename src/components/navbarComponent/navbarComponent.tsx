@@ -1,31 +1,40 @@
-import * as React from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
+import { ReactElement, useState } from 'react';
+import {
+    styled,
+    useTheme,
+    Theme,
+    CSSObject,
+    AppBarProps as MuiAppBarProps,
+    AppBar as MuiAppBar,
+    Box,
+    Toolbar,
+    List,
+    Typography,
+    Drawer as MuiDrawer,
+    CssBaseline,
+    Divider,
+    IconButton,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Avatar,
+    Button,
+    Tooltip,
+} from '@mui/material';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { Avatar, Button, Tooltip } from '@mui/material';
+
+import { red, blue } from '@mui/material/colors';
+
 import Logo from '../../assets/react.svg';
-import pages from "../../datas/pages.tsx";
-import {useNavigate} from "react-router-dom";
-import { red } from '@mui/material/colors';
-import { blue } from '@mui/material/colors';
+import pages from '../../datas/pages.tsx';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/auth/authContext.ts';
 import PageTitleComponent from '../pageTitleComponent/pageTitleComponent.tsx';
-import {useAuth} from "../../context/auth/authContext.ts";
-import {ReactElement} from "react";
 
 const drawerWidth = 240;
 
@@ -118,8 +127,8 @@ export default function NavbarComponent({ children, selectedIndex, breadcumbs }:
     const links: link[] = [];
 
     breadcumbs.forEach(b => links.push(pages[b]));
-    const [open, setOpen] = React.useState(false);
-    const [selectedTabIndex, setSelectedTabIndex] = React.useState(selectedIndex);
+    const [open, setOpen] = useState(false);
+    const [selectedTabIndex, setSelectedTabIndex] = useState(selectedIndex);
 
     const handleDrawerOpen = () => {
         setOpen(true);
