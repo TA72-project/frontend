@@ -24,16 +24,61 @@ type page = {
     element: ReactElement;
 };
 
-const pages : page[] = [
-    {text:'Tableau de bord',icons:<HomeIcon/>, path:'tableau_de_bord', element:<NavbarComponent selectedIndex={0} breadcumbs={[0]}><DashboardPage/></NavbarComponent>},
-    {text:'Missions',icons:<AssignmentIcon/>, path:'missions', element: <NavbarComponent selectedIndex={1} breadcumbs={[1]}><MissionsPage/></NavbarComponent>},
-    {text:'Type de mission',icons:<CollectionsBookmarkIcon/>, path:'missionsType', element: <NavbarComponent selectedIndex={2} breadcumbs={[2]}><MissionsTypePage/></NavbarComponent>},
-    {text:'Planning',icons:<CalendarMonthIcon/>, path:'planning', element: <NavbarComponent selectedIndex={3} breadcumbs={[3]}><PlanningPage/></NavbarComponent>},
-    {text:'Trajets',icons:<MapIcon/>, path:'trajets', element: <NavbarComponent selectedIndex={4} breadcumbs={[4]}><JourneysPage/></NavbarComponent>},
-    {text:'Disponibilités', icons:<AssignmentTurnedInIcon/>, path:'disponibilites', element: <NavbarComponent selectedIndex={5} breadcumbs={[5]}><AvailabilityPage/></NavbarComponent>},
-    {text:'Détails de mission', icons:<AssignmentIcon/>, path:'detail_mission/:id', element: <NavbarComponent selectedIndex={1} breadcumbs={[1,6]}><MissionInfoPage/></NavbarComponent>},
-    {text:'Mon profile', icons:<PersonIcon/>, path:'profil', element: <NavbarComponent selectedIndex={-1} breadcumbs={[7]}><Profile/></NavbarComponent>},
-    {text:'Formulaire type de mission',icons:<CollectionsBookmarkIcon/>, path:'mission_type_form/:id?', element: <NavbarComponent selectedIndex={2} breadcumbs={[2,8]}><MissionTypeForm/></NavbarComponent>},
+const pages: page[] = [
+    {
+        text: 'Tableau de bord',
+        icons: <HomeIcon/>,
+        path: 'tableau_de_bord',
+        element: <NavbarComponent selectedIndex={0} breadcumbs={[0]}><DashboardPage/></NavbarComponent>
+    },
+    {
+        text: 'Missions',
+        icons: <AssignmentIcon/>,
+        path: 'missions',
+        element: <NavbarComponent selectedIndex={1} breadcumbs={[1]}><MissionsPage/></NavbarComponent>
+    },
+    {
+        text: 'Type de mission',
+        icons: <CollectionsBookmarkIcon/>,
+        path: 'type_de_mission',
+        element: <NavbarComponent selectedIndex={2} breadcumbs={[2]}><MissionsTypePage/></NavbarComponent>
+    },
+    {
+        text: 'Planning',
+        icons: <CalendarMonthIcon/>,
+        path: 'planning',
+        element: <NavbarComponent selectedIndex={3} breadcumbs={[3]}><PlanningPage/></NavbarComponent>
+    },
+    {
+        text: 'Trajets',
+        icons: <MapIcon/>,
+        path: 'trajets',
+        element: <NavbarComponent selectedIndex={4} breadcumbs={[4]}><JourneysPage/></NavbarComponent>
+    },
+    {
+        text: 'Disponibilités',
+        icons: <AssignmentTurnedInIcon/>,
+        path: 'disponibilites',
+        element: <NavbarComponent selectedIndex={5} breadcumbs={[5]}><AvailabilityPage/></NavbarComponent>
+    },
+    {
+        text: 'Détails de mission',
+        icons: <AssignmentIcon/>,
+        path: 'detail_mission/:id',
+        element: <NavbarComponent selectedIndex={1} breadcumbs={[1, 6]}><MissionInfoPage/></NavbarComponent>
+    },
+    {
+        text: 'Mon profile',
+        icons: <PersonIcon/>,
+        path: 'profil',
+        element: <NavbarComponent selectedIndex={-1} breadcumbs={[7]}><Profile/></NavbarComponent>
+    },
+    {
+        text: 'Formulaire type de mission',
+        icons: <CollectionsBookmarkIcon/>,
+        path: 'mission_type_form/:id?',
+        element: <NavbarComponent selectedIndex={2} breadcumbs={[2, 8]}><MissionTypeForm/></NavbarComponent>
+    },
 ];
 
 export default pages;
