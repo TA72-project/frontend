@@ -40,3 +40,13 @@ export function formatDate(dateString: string): string {
 
     return `${datePart}\n${timePart}`;
 }
+
+export function formatNumberToTime(number: number) {
+    const hours = Math.floor(number / 60);
+    const minutes = number % 60;
+
+    const formattedHours = hours > 0 ? `${hours}h` : '';
+    const formattedMinutes =`${minutes}m`;
+
+    return hours > 0 && minutes > 0 ? `${formattedHours}${formattedMinutes}` : formattedHours || formattedMinutes
+}

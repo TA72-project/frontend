@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Box } from "@mui/material";
 import {deleteMissionType, getAllMissionType} from "../../../requests/missionTypes.ts";
 import { useEffect, useState } from "react";
+import {formatNumberToTime} from "../../../utils/formatUtils.ts";
 
 export interface IIdMissionType extends IMissionType {
     id: number;
@@ -68,7 +69,8 @@ export default function MissionsPage(){
         },
         {
             field: 'minutes_duration',
-            headerName: 'Durée (Minutes)',
+            headerName: 'Durée',
+            valueFormatter: (params) => formatNumberToTime(params.value),
             type: 'number',
             align: 'center',
             headerAlign: 'center',
