@@ -9,8 +9,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import TaskCardComponent from '../../components/taskCardComponent/taskCardComponent.tsx';
 import { EventContentArg } from '@fullcalendar/core/index.js';
-
-// More details on : https://fullcalendar.io/docs#toc
+import frLocale from '@fullcalendar/core/locales/fr';
 
 const todayStr = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
@@ -114,16 +113,16 @@ const StyledMenu = styled((props: MenuProps) =>
 
 export default function PlanningPage() {
 
-    const businessHours= [ // specify an array instead
+    const businessHours= [
         {
-            daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday, Tuesday, Wednesday
-            startTime: '08:00', // 8am
-            endTime: '18:00' // 6pm
+            daysOfWeek: [ 1, 2, 3, 4, 5 ],
+            startTime: '08:00',
+            endTime: '18:00'
         },
         {
-            daysOfWeek: [ 6, 0 ], // Thursday, Friday
-            startTime: '10:00', // 10am
-            endTime: '16:00' // 4pm
+            daysOfWeek: [ 6, 0 ],
+            startTime: '10:00',
+            endTime: '16:00'
         }
     ];
 
@@ -143,12 +142,14 @@ export default function PlanningPage() {
                     <Grid item xs={12} sm={10} md={9}>
                         <Paper style={{padding: '15px'}}>
                         <FullCalendar
-                            plugins={[dayGridPlugin, timeGridPlugin]}//interactionPlugin
+                            plugins={[dayGridPlugin, timeGridPlugin]}
                             headerToolbar={{
                                 left: 'prev,next today',
                                 center: 'title',
                                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
                             }}
+                            locales={[frLocale]}
+                            locale="fr"
                             initialView='dayGridMonth'
                             editable={true}
                             selectable={true}
@@ -156,7 +157,6 @@ export default function PlanningPage() {
                             dayMaxEvents={true}
                             weekends={state.weekendsVisible}
                             businessHours={businessHours}
-                            //events={state.currentEvents}
                             eventContent={renderEventContent}
                         />
                         </Paper>
