@@ -59,16 +59,19 @@ export default function MissionsPage(){
             flex: 0.25,
         },
         {
-            field: 'peopleRequired',
+            field: 'people_required',
             headerName: 'Nombre de personne requise',
             type: 'number',
+            align: 'center',
+            headerAlign: 'center',
             flex: 0.25,
         },
         {
-            field: 'minutesDuration',
-            headerName: 'Durée (Minute)',
+            field: 'minutes_duration',
+            headerName: 'Durée (Minutes)',
             type: 'number',
-            headerAlign: 'right',
+            align: 'center',
+            headerAlign: 'center',
             flex: 0.25,
         },
         {
@@ -80,12 +83,12 @@ export default function MissionsPage(){
             flex: 0.25,
             getActions: (params: GridRowParams) => [
                 <GridActionsCellItem
-                    icon={<EditIcon/>}
+                    icon={<EditIcon color="primary" />}
                     label="Editer"
                     onClick={() => openEditForm(params.row.id)}
                 />,
                 <GridActionsCellItem
-                    icon={<DeleteIcon/>}
+                    icon={<DeleteIcon color="error" />}
                     label="Supprimer"
                     onClick={() => handleDeleteMissionType(params.row.id)}
                 />
