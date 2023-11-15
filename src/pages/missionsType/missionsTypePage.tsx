@@ -106,10 +106,10 @@ export default function MissionsPage(){
     };
 
     return(
-        <Box>
+        <Box textAlign="center">
             <Button
                 variant="contained"
-                color="primary"
+                color="success"
                 sx={{m:2}}
                 onClick={() => navigate('/mission_type_form')}>
                 Nouveau type

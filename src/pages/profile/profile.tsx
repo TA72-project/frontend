@@ -20,7 +20,7 @@ export default function Profile() {
     return (
         <div>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={activeTab} onChange={handleTabChange} aria-label="basic tabs example">
+                <Tabs value={activeTab} onChange={handleTabChange} aria-label="basic tabs example" centered>
                     {tabs.map((tab, index) => (
                         <Tab key={index} label={tab.label} icon={tab.icon} iconPosition="start" />
                     ))}

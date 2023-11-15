@@ -38,7 +38,7 @@ const pages: page[] = [
         element: <NavbarComponent selectedIndex={1} breadcumbs={[1]}><MissionsPage/></NavbarComponent>
     },
     {
-        text: 'Type de mission',
+        text: 'Types de mission',
         icons: <CollectionsBookmarkIcon/>,
         path: 'type_de_mission',
         element: <NavbarComponent selectedIndex={2} breadcumbs={[2]}><MissionsTypePage/></NavbarComponent>

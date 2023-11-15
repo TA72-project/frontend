@@ -1,9 +1,20 @@
 import '../../assets/css/mission.css';
-import {DataGrid, GridColDef, GridColumnGroupingModel, GridToolbar} from '@mui/x-data-grid';
-import {Paper} from "@mui/material";
-import {getAllMissions} from "../../requests/missions.ts";
+import {
+    DataGrid,
+    GridActionsCellItem,
+    GridColDef,
+    GridColumnGroupingModel, GridPaginationModel,
+    GridRowParams,
+    GridToolbar
+} from '@mui/x-data-grid';
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material";
+import {deleteMission, getAllMissions} from "../../requests/missions.ts";
 import {useEffect, useState} from "react";
 import {formatAddress, formatDate} from "../../utils/formatUtils.ts";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from '@mui/icons-material/Close';
+import SaveIcon from '@mui/icons-material/Save';
 
 interface IMissionPageProps {
     rows: Array<object> | null | undefined;
@@ -22,6 +33,22 @@ export default function MissionsPage() {
             perPage: 5,
         },
     });
+
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleOpenModal = () => setOpenModal((prevState) => !prevState);
+
+    const handleDeleteMission = async (id: number) => {
+        try {
+            await deleteMission(id);
+            getAllMissions(missionsPageStates.paginationStates.page, missionsPageStates.paginationStates.perPage).then((value) => setMissionsPageStates((prevState) => ({
+                ...prevState,
+                rows: value?.data
+            })));
+        } catch (error) {
+            console.error('Erreur lors de la suppression du type de mission', error);
+        }
+    }
 
     useEffect(() => {
         getAllMissions(missionsPageStates.paginationStates.page, missionsPageStates.paginationStates.perPage).then((value) => setMissionsPageStates((prevState) => ({
@@ -97,7 +124,26 @@ export default function MissionsPage() {
                 headerName: 'Adresse',
                 valueGetter: (params) => formatAddress(params.row.patient.address),
                 flex: 0.10,
-            }
+            },
+            {
+                field: 'actions',
+                type: 'actions',
+                headerName: 'Actions',
+                disableExport: true,
+                headerAlign: 'center',
+                getActions: (params: GridRowParams) => [
+                    <GridActionsCellItem
+                        icon={<EditIcon color="primary"/>}
+                        label="Editer"
+                        onClick={handleOpenModal}
+                    />,
+                    <GridActionsCellItem
+                        icon={<DeleteIcon color="error"/>}
+                        label="Supprimer"
+                        onClick={() => handleDeleteMission(params.row.id)}
+                    />
+                ]
+            },
         ];
 
     const columnGroupingModel: GridColumnGroupingModel =
@@ -126,27 +172,63 @@ export default function MissionsPage() {
         ];
 
     return (
-        <div>
-            <Paper style={{boxShadow: 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px'}}>
-                <DataGrid
-                    style={{border: 'none'}}
-                    slots={{
-                        toolbar: GridToolbar,
-                    }}
-                    initialState={{
-                        pagination: {paginationModel: {pageSize: 5}},
-                    }}
-                    density="standard"
-                    pageSizeOptions={[5, 10, 25]}
-                    autoHeight
-                    rows={missionsPageStates.rows ?? []}
-                    columns={columns}
-                    columnGroupingModel={columnGroupingModel}
-                    experimentalFeatures={{columnGrouping: true}}
-                    getRowId={(row) => row.id}
-                />
-            </Paper>
-        </div>
+        <Box textAlign="center">
+            <Button
+                variant="contained"
+                color="success"
+                sx={{m: 2}}
+                onClick={handleOpenModal}>
+                Nouvelle mission
+            </Button>
+            <DataGrid
+                style={{border: 'none'}}
+                slots={{
+                    toolbar: GridToolbar,
+                }}
+                initialState={{
+                    pagination: {paginationModel: {pageSize: 5}},
+                }}
+                density="standard"
+                pageSizeOptions={[5, 10, 25]}
+                autoHeight
+                rows={missionsPageStates.rows ?? []}
+                columns={columns}
+                columnGroupingModel={columnGroupingModel}
+                experimentalFeatures={{columnGrouping: true}}
+                getRowId={(row) => row.id}
+                onPaginationModelChange={(params: GridPaginationModel) => setMissionsPageStates((prevState) => ({
+                    ...prevState,
+                    paginationStates: {...prevState.paginationStates, page: params.page + 1, perPage: params.pageSize}
+                }))}
+            />
+            <Dialog
+                onClose={handleOpenModal}
+                open={openModal}
+            >
+                <DialogTitle>
+                    Créer ou modifier une mission
+                </DialogTitle>
+                <DialogContent>
+
+                </DialogContent>
+                <DialogActions sx={{justifyContent: 'center'}}>
+                    <IconButton
+                        onClick={handleOpenModal}
+                    >
+                        <CloseIcon
+                            color="error"
+                        />
+                    </IconButton>
+                    <IconButton
+                        onClick={handleOpenModal}
+                    >
+                        <SaveIcon
+                            color="success"
+                        />
+                    </IconButton>
+                </DialogActions>
+            </Dialog>
+        </Box>
     );
 }
 
