@@ -5,16 +5,16 @@ import MapIcon from "@mui/icons-material/Map";
 import PersonIcon from "@mui/icons-material/Person";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
-import AvailabilityPage from "../pages/availability/availabilityPage.tsx";
-import DashboardPage from "../pages/dashboard/dashboardPage.tsx";
-import MissionsPage from "../pages/missions/missionsPage.tsx";
-import PlanningPage from "../pages/planning/planningPage.tsx";
-import JourneysPage from "../pages/journeys/journeysPage.tsx";
-import MissionInfoPage from "../pages/missions/missionInfoPage.tsx";
+import AvailabilityPage from "../pages/availabilityPage/availabilityPage.tsx";
+import DashboardPage from "../pages/dashboardPage/dashboardPage.tsx";
+import MissionsPage from "../pages/missionsPages/missionsPage/missionsPage.tsx";
+import PlanningPage from "../pages/planningPage/planningPage.tsx";
+import JourneysPage from "../pages/journeysPage/journeysPage.tsx";
+import MissionPage from "../pages/missionsPages/missionPage/missionPage.tsx";
 import NavbarComponent from "../components/navbarComponent/navbarComponent.tsx";
-import Profile from "../pages/profile/profile.tsx";
-import MissionsTypePage from "../pages/missionsType/missionsTypePage.tsx";
-import MissionTypeForm from "../pages/missionsType/missionTypeForm.tsx";
+import ProfilePage from "../pages/profilePage/profilePage.tsx";
+import MissionsTypePage from "../pages/missionsTypePages/missionTypePage/missionTypePage.tsx";
+import MissionTypeForm from "../pages/missionsTypePages/missionTypeFormPage/missionTypeForm.tsx";
 import {ReactElement} from "react";
 
 type page = {
@@ -34,7 +34,7 @@ const pages: page[] = [
     {
         text: 'Missions',
         icons: <AssignmentIcon/>,
-        path: 'missions',
+        path: 'missionsPages',
         element: <NavbarComponent selectedIndex={1} breadcumbs={[1]}><MissionsPage/></NavbarComponent>
     },
     {
@@ -46,7 +46,7 @@ const pages: page[] = [
     {
         text: 'Planning',
         icons: <CalendarMonthIcon/>,
-        path: 'planning',
+        path: 'planningPage',
         element: <NavbarComponent selectedIndex={3} breadcumbs={[3]}><PlanningPage/></NavbarComponent>
     },
     {
@@ -65,13 +65,13 @@ const pages: page[] = [
         text: 'Détails de mission',
         icons: <AssignmentIcon/>,
         path: 'detail_mission/:id',
-        element: <NavbarComponent selectedIndex={1} breadcumbs={[1, 6]}><MissionInfoPage/></NavbarComponent>
+        element: <NavbarComponent selectedIndex={1} breadcumbs={[1, 6]}><MissionPage/></NavbarComponent>
     },
     {
-        text: 'Mon profile',
+        text: 'Mon profilePage',
         icons: <PersonIcon/>,
         path: 'profil',
-        element: <NavbarComponent selectedIndex={-1} breadcumbs={[7]}><Profile/></NavbarComponent>
+        element: <NavbarComponent selectedIndex={-1} breadcumbs={[7]}><ProfilePage/></NavbarComponent>
     },
     {
         text: 'Formulaire type de mission',

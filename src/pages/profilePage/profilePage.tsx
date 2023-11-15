@@ -5,7 +5,7 @@ import 'dayjs/locale/fr';
 import AccountTabComponent from '../../components/accountComponents/accountTabComponent/accountTabComponent';
 import SecurityTabComponent from "../../components/accountComponents/securityTabComponent/securityTabComponent.tsx";
 
-export default function Profile() {
+export default function ProfilePage() {
     const [activeTab, setActiveTab] = useState(0);
 
     const tabs = [

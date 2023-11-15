@@ -1,10 +1,10 @@
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
-import '../../assets/css/mission.css';
+import '../../../assets/css/mission.css';
 import { useNavigate, useParams } from "react-router-dom";
 import 'dayjs/locale/fr';
 import { useEffect, useState } from "react";
-import { createMissionType, getMissionType, updateMissionType } from "../../requests/missionTypes.ts";
-import {IMissionType} from "./missionsTypePage.tsx";
+import { createMissionType, getMissionType, updateMissionType } from "../../../requests/missionTypes.ts";
+import {IMissionType} from "../missionTypePage/missionTypePage.tsx";
 
 export default function MissionTypeForm(){
 

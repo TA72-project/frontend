@@ -1,4 +1,4 @@
-import '../../assets/css/mission.css';
+import '../../../assets/css/mission.css';
 import {
     DataGrid,
     GridActionsCellItem,
@@ -8,9 +8,9 @@ import {
     GridToolbar
 } from '@mui/x-data-grid';
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material";
-import {deleteMission, getAllMissions} from "../../requests/missions.ts";
+import {deleteMission, getAllMissions} from "../../../requests/missions.ts";
 import {useEffect, useState} from "react";
-import {formatAddress, formatDate} from "../../utils/formatUtils.ts";
+import {formatAddress, formatDate} from "../../../utils/formatUtils.ts";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from '@mui/icons-material/Close';
