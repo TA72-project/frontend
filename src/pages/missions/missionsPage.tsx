@@ -55,7 +55,7 @@ export default function MissionsPage() {
                     const formattedDateTime = formatDate(startValue);
                     return <p style={{whiteSpace: 'pre-line', textAlign: 'center'}}>{formattedDateTime}</p>;
                 },
-                flex: 0.05,
+                flex: 0.1,
             },
             {
                 field: 'end',
@@ -67,7 +67,7 @@ export default function MissionsPage() {
                     const formattedDateTime = formatDate(startValue);
                     return <p style={{whiteSpace: 'pre-line', textAlign: 'center'}}>{formattedDateTime}</p>;
                 },
-                flex: 0.05,
+                flex: 0.1,
             },
             {
                 field: 'people_required',

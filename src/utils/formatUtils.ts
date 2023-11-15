@@ -23,19 +23,19 @@ export function formatAddress(address: Address): string {
 
 export function formatDate(dateString: string): string {
     const optionsDate: Intl.DateTimeFormatOptions = {
-        day: '2-digit',
-        month: '2-digit',
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
         year: 'numeric',
     };
 
     const optionsTime: Intl.DateTimeFormatOptions = {
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit',
         hour12: false,
     };
 
-    const datePart = new Date(dateString).toLocaleDateString(undefined, optionsDate);
+    const datePart = new Date(dateString).toLocaleDateString('fr-FR', optionsDate);
     const timePart = new Date(dateString).toLocaleTimeString(undefined, optionsTime);
 
     return `${datePart}\n${timePart}`;
