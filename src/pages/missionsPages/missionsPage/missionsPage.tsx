@@ -1,4 +1,3 @@
-import '../../../assets/css/mission.css';
 import {
     DataGrid,
     GridActionsCellItem,

@@ -1,0 +1,5 @@
+export function EventComponent(){
+    return(
+        <></>
+    )
+}

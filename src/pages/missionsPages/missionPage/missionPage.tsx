@@ -1,6 +1,5 @@
 import { Box, Button, Chip, Grid, Paper, Table, TableBody, TableCell, TableRow, TextField, Typography } from "@mui/material";
 import { grey } from '@mui/material/colors';
-import '../../../assets/css/mission.css';
 import { DateTimePicker, LocalizationProvider, frFR, renderTimeViewClock } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from "dayjs";
