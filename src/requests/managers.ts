@@ -1,6 +1,14 @@
 import {request} from "../utils";
 
-
+export interface IManager {
+    id: number,
+    id_user: number,
+    id_center: number,
+    fname: string,
+    lname: string,
+    mail: string,
+    phone: string | null,
+}
 export const getAllManagers = async (page: number, perPage: number) => {
     try {
         return await request.get(`/managers?page=${page}&per_page=${perPage}`)
@@ -27,7 +35,8 @@ export const createManager = async (idUser: number, idCenter: number, fname: str
 
 export const getMe = async () => {
     try {
-        return await request.get('/managers/me');
+        const response = await request.get('/managers/me');
+        return response as IManager | null
     } catch (error) {
         console.error(error)
     }

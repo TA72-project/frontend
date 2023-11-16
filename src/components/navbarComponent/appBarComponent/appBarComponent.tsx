@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     styled,
     AppBarProps as MuiAppBarProps,
@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useNavigate} from "react-router-dom";
+import {getMe, IManager} from '../../../requests/managers';
 
 const drawerWidth = 240;
 
@@ -43,6 +44,12 @@ interface AppBarComponentProps {
 
 export const AppBarComponent: React.FC<AppBarComponentProps> = ({ handleDrawerOpen, open }) => {
     const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState<IManager | null | undefined>();
+
+    useEffect(() => {
+        getMe().then((value) => setUserInfo(value));
+    }, []);
+
     return (
         <AppBar position="fixed" open={open}>
             <Toolbar>
@@ -59,7 +66,8 @@ export const AppBarComponent: React.FC<AppBarComponentProps> = ({ handleDrawerOp
                 <Typography variant="h6" noWrap sx={{ flexGrow: 1, mr: 'auto' }} component="div">
                 </Typography>
                 <Button variant="text" onClick={() => navigate("/profil")}>
-                    <Avatar sx={{ bgcolor: 'white', color: 'black' }} aria-label="recipe">
+                    <Avatar>
+                        {userInfo && userInfo?.fname[0]+userInfo?.lname[0]}
                     </Avatar>
                 </Button>
             </Toolbar>

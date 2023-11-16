@@ -1,9 +1,23 @@
 import React, {useState} from 'react';
-import { styled, useTheme, Theme, CSSObject, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip, Drawer as MuiDrawer, Divider, IconButton } from '@mui/material';
+import {
+    styled,
+    useTheme,
+    Theme,
+    CSSObject,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Tooltip,
+    Drawer as MuiDrawer,
+    Divider,
+    IconButton
+} from '@mui/material';
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew"
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { red, blue } from '@mui/material/colors';
+import {red, blue} from '@mui/material/colors';
 import Logo from "../../../assets/react.svg";
 import pages from "../../../datas/pages.tsx";
 import {useNavigate} from "react-router-dom";
@@ -32,7 +46,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
     },
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const DrawerHeader = styled('div')(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -40,8 +54,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+    ({theme, open}) => ({
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
@@ -77,19 +91,19 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = (props: DrawerCom
                 <List>
                     <ListItem>
                         <ListItemIcon>
-                            <img src={Logo} alt="Logo" />
+                            <img src={Logo} alt="Logo"/>
                         </ListItemIcon>
                         <ListItemText>Projet TA72</ListItemText>
                     </ListItem>
                 </List>
                 <IconButton onClick={handleDrawerOpen}>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
                 </IconButton>
             </DrawerHeader>
-            <Divider />
+            <Divider/>
             <List>
-                {(pages.slice(0, 6)).map(({ text, icons, path }, index) => (
-                    <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                {(pages.slice(0, 6)).map(({text, icons, path}, index) => (
+                    <ListItem key={text} disablePadding sx={{display: 'block'}}>
                         <ListItemButton
                             onClick={() => {
                                 setSelectedTabIndex(index);
@@ -117,13 +131,13 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = (props: DrawerCom
                                     {icons}
                                 </Tooltip>
                             </ListItemIcon>
-                            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                            <ListItemText primary={text} sx={{opacity: open ? 1 : 0}}/>
                         </ListItemButton>
                     </ListItem>
                 ))}
             </List>
-            <List sx={{ marginTop: 'auto' }}>
-                <ListItem disablePadding sx={{ display: 'block', bgcolor: red[100] }}>
+            <List sx={{marginTop: 'auto'}}>
+                <ListItem disablePadding sx={{display: 'block', bgcolor: red[100]}}>
                     <ListItemButton
                         sx={{
                             minHeight: 48,
@@ -139,9 +153,9 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = (props: DrawerCom
                                 justifyContent: 'center',
                             }}
                         >
-                            <PowerSettingsNewIcon />
+                            <PowerSettingsNewIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Déconnexion" sx={{ opacity: open ? 1 : 0 }} />
+                        <ListItemText primary="Déconnexion" sx={{opacity: open ? 1 : 0}}/>
                     </ListItemButton>
                 </ListItem>
             </List>
