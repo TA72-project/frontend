@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
     styled,
     AppBarProps as MuiAppBarProps,
@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useNavigate} from "react-router-dom";
-import {getMe, IManager} from '../../../requests/managers';
+import {useAuth} from "../../../context/auth/authProvider.tsx";
 
 const drawerWidth = 240;
 
@@ -43,12 +43,8 @@ interface AppBarComponentProps {
 }
 
 export const AppBarComponent: React.FC<AppBarComponentProps> = ({ handleDrawerOpen, open }) => {
+    const {userInfo} = useAuth();
     const navigate = useNavigate();
-    const [userInfo, setUserInfo] = useState<IManager | null | undefined>();
-
-    useEffect(() => {
-        getMe().then((value) => setUserInfo(value));
-    }, []);
 
     return (
         <AppBar position="fixed" open={open}>

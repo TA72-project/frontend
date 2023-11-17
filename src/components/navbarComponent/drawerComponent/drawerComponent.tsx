@@ -21,7 +21,8 @@ import {red, blue} from '@mui/material/colors';
 import Logo from "../../../assets/react.svg";
 import pages from "../../../datas/pages.tsx";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../../../context/auth/authContext.ts";
+import {logout} from "../../../requests/auth.ts";
+import { useAuth } from '../../../context/auth/authProvider.tsx';
 
 const drawerWidth = 240;
 
@@ -83,7 +84,7 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = (props: DrawerCom
     const theme = useTheme();
     const [selectedTabIndex, setSelectedTabIndex] = useState(selectedIndex);
     const navigate = useNavigate();
-    const {logout} = useAuth();
+    const {setIsLogin, setUserInfo} = useAuth();
 
     return (
         <Drawer variant="permanent" open={open}>
@@ -144,7 +145,13 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = (props: DrawerCom
                             justifyContent: open ? 'initial' : 'center',
                             px: 2.5,
                         }}
-                        onClick={logout}
+                        onClick={() =>
+                            logout().then(() => {
+                                navigate("/login");
+                                setIsLogin((prevState)=>!prevState);
+                                setUserInfo(null);
+                            })
+                        }
                     >
                         <ListItemIcon
                             sx={{

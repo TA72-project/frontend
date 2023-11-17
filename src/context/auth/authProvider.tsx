@@ -1,45 +1,38 @@
-import {FC, ReactNode, useCallback, useState} from "react";
-import {useNavigate} from "react-router";
-import AuthContext, {IFormValues} from "./authContext.ts";
-import {login, logout} from "../../requests/auth.ts";
+import {createContext, Dispatch, ReactElement, SetStateAction, useContext, useState} from "react";
+import {IManager} from "../../requests/managers.ts";
 
-export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
+interface IAuthContextType {
+    userInfo: IManager | null | undefined;
+    setUserInfo: Dispatch<SetStateAction<IManager | null | undefined>>;
+    isLogin: boolean;
+    setIsLogin: Dispatch<SetStateAction<boolean>>;
+}
 
-    const navigate = useNavigate();
-    const [formValues, setFormValues] = useState<IFormValues>({
-        mail: "",
-        password: "",
-    });
+const AuthContext = createContext<IAuthContextType>({
+    userInfo: null,
+    setUserInfo: () => {},
+    isLogin: false,
+    setIsLogin: () => {},
+});
 
+export const AuthProvider = ({children}: {children: ReactElement}) => {
+    const [userInfo, setUserInfo] = useState<IManager | null | undefined>();
     const [isLogin, setIsLogin] = useState(false);
 
-    const handleLogin = useCallback((e: React.MouseEvent) => {
-        e.preventDefault();
-        login(formValues.mail,formValues.password).then(()=>{
-            navigate("/tableau_de_bord");
-            setIsLogin((prevState)=>!prevState);
-        });
-        },
-        [formValues, navigate]
-    );
-
-    const handleLogout = async () => await logout().then(() => {
-        navigate("/login");
-        setIsLogin((prevState)=>!prevState);
-    });
-
-    const sharedValues = {
-        login: handleLogin,
-        logout: handleLogout,
-        formValues: formValues,
-        setFormValues: setFormValues,
-        isLogin: isLogin,
-        setIsLogin: setIsLogin,
-    };
+    const contextValue: IAuthContextType = {
+        userInfo,
+        setUserInfo,
+        isLogin,
+        setIsLogin
+    }
 
     return (
-        <AuthContext.Provider value={sharedValues}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
-    );
+    )
+};
+
+export const useAuth = (): IAuthContextType => {
+    return useContext(AuthContext);
 };

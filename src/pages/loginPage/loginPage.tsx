@@ -11,14 +11,35 @@ import {
     OutlinedInput,
     Divider,
 } from "@mui/material";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {useAuth} from "../../context/auth/authContext.ts";
+import {login} from "../../requests/auth.ts";
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "../../context/auth/authProvider.tsx";
+import {getMe} from "../../requests/managers.ts";
 
 export default function LoginPage() {
-    const {login, formValues, setFormValues} = useAuth();
+    const navigate = useNavigate();
+    const {setIsLogin, setUserInfo} = useAuth();
+    const [formValues, setFormValues] = useState<{mail: string, password: string}>({
+        mail: '',
+        password: '',
+    });
     const [showPassword, setShowPassword] = useState(false);
+
+    const handleLogin = useCallback((e: React.MouseEvent) => {
+            e.preventDefault();
+            login(formValues.mail,formValues.password).then(()=>{
+                navigate("/tableau_de_bord");
+                setIsLogin((prevState)=>!prevState);
+                getMe().then((value) => {
+                    setUserInfo(value)
+                })
+            });
+        },
+        [formValues, navigate]
+    );
 
     return (
         <Grid container justifyContent="center" alignItems="center" style={{height: '100vh'}}>
@@ -60,7 +81,7 @@ export default function LoginPage() {
                                 name="password"
                             />
                         </FormControl>
-                        <Button type="submit" variant="contained" color="primary" onClick={login}>
+                        <Button type="submit" variant="contained" color="primary" onClick={handleLogin}>
                             Connexion
                         </Button>
                     </Grid>
