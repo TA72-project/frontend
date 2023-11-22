@@ -1,19 +1,24 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import {Link} from "@mui/material";
+import { Link } from "@mui/material";
 
 export default function NotFoundPage() {
-
-    return(
-        <Box sx={{width:'100%', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center'}}>
-            <Typography variant="h3">
-                Page non trouvée ou inexistante
-            </Typography>
-            <Typography>
-                <Link href="/tableau_de_bord">
-                    Retourner sur tableau de bord
-                </Link>
-            </Typography>
-        </Box>
-    )
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+      }}
+    >
+      <Typography variant="h3">Page non trouvée ou inexistante</Typography>
+      <Typography>
+        <Link href="/tableau_de_bord">Retourner sur tableau de bord</Link>
+      </Typography>
+    </Box>
+  );
 }
