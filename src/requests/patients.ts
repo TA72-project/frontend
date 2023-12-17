@@ -11,7 +11,9 @@ interface IPatientList {
 
 export const getAllPatients = async (page: number, perPage: number) => {
   try {
-    const response = await request.get(`/patients?page=${page}&per_page=${perPage}`);
+    const response = await request.get(
+      `/patients?page=${page}&per_page=${perPage}`,
+    );
     return response as IPatientList;
   } catch (error) {
     console.error(error);

@@ -289,9 +289,9 @@ export default function PlanningPage() {
           await getAllNurses(1, total).then((value) => {
             if (value) {
               value.data.map((n) => {
-                if(n.id) {
+                if (n.id) {
                   nurses.push({ name: n.fname + " " + n.lname, value: n.id });
-                }                
+                }
               });
             }
           });
@@ -736,7 +736,7 @@ export default function PlanningPage() {
           );
           if (response) {
             idNewVisit = response;
-          }          
+          }
         }
       }
       formValues.nurses.map(async (nurse) => {

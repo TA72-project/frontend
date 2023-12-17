@@ -1,6 +1,6 @@
 type Detail = {
   label: string;
-  value: string | string[];
+  value: string | string[] | number;
 };
 
 export type DetailsArrayItem = {

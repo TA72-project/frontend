@@ -11,7 +11,9 @@ interface INurseList {
 
 export const getAllNurses = async (page: number, perPage: number) => {
   try {
-    const response = await request.get(`/nurses?page=${page}&per_page=${perPage}`);
+    const response = await request.get(
+      `/nurses?page=${page}&per_page=${perPage}`,
+    );
     return response as INurseList | null;
   } catch (error) {
     console.error(error);

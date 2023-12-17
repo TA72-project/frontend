@@ -11,7 +11,9 @@ interface ISkillList {
 
 export const getAllSkills = async (page: number, perPage: number) => {
   try {
-    const response = await request.get(`/skills?page=${page}&per_page=${perPage}`);
+    const response = await request.get(
+      `/skills?page=${page}&per_page=${perPage}`,
+    );
     return response as ISkillList;
   } catch (error) {
     console.error(error);

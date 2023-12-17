@@ -290,9 +290,9 @@ export default function VisitPage() {
       await getAllNurses(1, total).then((value) => {
         if (value) {
           value.data.map((n) => {
-            if(n.id) {
+            if (n.id) {
               nurses.push({ name: n.fname + " " + n.lname, value: n.id });
-            }            
+            }
           });
         }
       });

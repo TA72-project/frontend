@@ -8,9 +8,23 @@ import {
   GridToolbar,
   GridPaginationModel,
 } from "@mui/x-data-grid";
-import { Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, TextField, DialogContentText } from "@mui/material";
+import {
+  Button,
+  Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  DialogContentText,
+} from "@mui/material";
 import { useEffect, useState } from "react";
-import { createSkill, deleteSkill, getAllSkills, updateSkill } from "../../requests/skills.ts";
+import {
+  createSkill,
+  deleteSkill,
+  getAllSkills,
+  updateSkill,
+} from "../../requests/skills.ts";
 import { useSnack } from "../../context/snackbar/snackbarContext.ts";
 import { ISkill } from "../../utils/interfaces.ts";
 
@@ -49,10 +63,7 @@ export default function SkillsPage() {
         setRowCount(response.total);
       }
     } catch (error) {
-      console.error(
-        "Erreur lors de la récupération des compétences",
-        error,
-      );
+      console.error("Erreur lors de la récupération des compétences", error);
     }
   };
 
@@ -64,7 +75,7 @@ export default function SkillsPage() {
       message: "Operation réussie !",
     }));
     fetchSkills(currentPage, pageSize);
-  }
+  };
 
   const setFail = () => {
     setSnackbarValues((prevState) => ({
@@ -74,11 +85,11 @@ export default function SkillsPage() {
       message:
         "Une erreur est survenue. Veuillez contacter le service technique.",
     }));
-  }
+  };
 
   const handleDeleteSkill = async () => {
     try {
-      if(idSkillToDelete) {
+      if (idSkillToDelete) {
         await deleteSkill(idSkillToDelete);
         fetchSkills(currentPage, pageSize);
       }
@@ -92,7 +103,7 @@ export default function SkillsPage() {
 
   const handleSaveSkill = async () => {
     try {
-      if(formValues.id != null) {
+      if (formValues.id != null) {
         await updateSkill(formValues.id, formValues.name);
       } else {
         await createSkill(formValues.name);

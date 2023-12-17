@@ -27,7 +27,6 @@ export function formatAddress(address: IAddress): string {
   return formattedAddress;
 }
 
-
 export function formatDate(dateString: string): string {
   const optionsDate: Intl.DateTimeFormatOptions = {
     weekday: "long",
@@ -92,7 +91,7 @@ export function generateRandomString(): string {
   const length = Math.floor(Math.random() * 6) + 10;
   let result = "";
   const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";//!@#$%^&*()-_=+";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; //!@#$%^&*()-_=+";
 
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);

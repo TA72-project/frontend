@@ -11,7 +11,9 @@ interface IManagerList {
 
 export const getAllManagers = async (page: number, perPage: number) => {
   try {
-    const response = await request.get(`/managers?page=${page}&per_page=${perPage}`);
+    const response = await request.get(
+      `/managers?page=${page}&per_page=${perPage}`,
+    );
     return response as IManagerList;
   } catch (error) {
     console.error(error);

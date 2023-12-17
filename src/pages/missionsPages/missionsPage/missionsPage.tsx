@@ -19,9 +19,19 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
-import { createMission, deleteMission, getAllMissions, updateMission } from "../../../requests/missions.ts";
+import {
+  createMission,
+  deleteMission,
+  getAllMissions,
+  updateMission,
+} from "../../../requests/missions.ts";
 import { useEffect, useState } from "react";
-import { formatAddress, formatDate, formatDateToSave, formatNumberToTime } from "../../../utils/formatUtils.ts";
+import {
+  formatAddress,
+  formatDate,
+  formatDateToSave,
+  formatNumberToTime,
+} from "../../../utils/formatUtils.ts";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AssignmentIcon from "@mui/icons-material/Assignment";
@@ -103,7 +113,13 @@ export default function MissionsPage() {
         if (value) {
           value.data.map((mt) =>
             missionTypes.push({
-              name: mt.name + " - " + " Durée : " + formatNumberToTime(mt.minutes_duration) + " - Personne : " + mt.people_required,
+              name:
+                mt.name +
+                " - " +
+                " Durée : " +
+                formatNumberToTime(mt.minutes_duration) +
+                " - Personne : " +
+                mt.people_required,
               value: mt.id,
             }),
           );
@@ -121,7 +137,7 @@ export default function MissionsPage() {
       await getAllPatients(1, total).then((value) => {
         if (value) {
           value.data.map((patient) => {
-            if(patient.id) {
+            if (patient.id) {
               missionPatients.push({
                 name: patient.fname + " " + patient.lname,
                 value: patient.id,

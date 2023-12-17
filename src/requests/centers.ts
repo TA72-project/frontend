@@ -11,7 +11,9 @@ interface ICenterList {
 
 export const getAllCenters = async (page: number, perPage: number) => {
   try {
-    const response = await request.get(`/centers?page=${page}&per_page=${perPage}`);
+    const response = await request.get(
+      `/centers?page=${page}&per_page=${perPage}`,
+    );
     return response as ICenterList;
   } catch (error) {
     console.error(error);

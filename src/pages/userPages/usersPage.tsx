@@ -26,11 +26,30 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { UserType } from "../../datas/enums.tsx";
-import { createManager, deleteManager, getAllManagers, udpdateManager } from "../../requests/managers.ts";
-import { INurse, IPatient, IManager, ISkill,} from "../../utils/interfaces.ts";
-import { createNurse, deleteNurse, getAllNurses, updateNurse } from "../../requests/nurses.ts";
-import { createPatient, deletePatient, getAllPatients, updatePatient } from "../../requests/patients.ts";
-import { formatAddress, formatNumberToTime, generateRandomString } from "../../utils/formatUtils.ts";
+import {
+  createManager,
+  deleteManager,
+  getAllManagers,
+  udpdateManager,
+} from "../../requests/managers.ts";
+import { INurse, IPatient, IManager, ISkill } from "../../utils/interfaces.ts";
+import {
+  createNurse,
+  deleteNurse,
+  getAllNurses,
+  updateNurse,
+} from "../../requests/nurses.ts";
+import {
+  createPatient,
+  deletePatient,
+  getAllPatients,
+  updatePatient,
+} from "../../requests/patients.ts";
+import {
+  formatAddress,
+  formatNumberToTime,
+  generateRandomString,
+} from "../../utils/formatUtils.ts";
 import { getAllCenters, getCenter } from "../../requests/centers.ts";
 import { useSnack } from "../../context/snackbar/snackbarContext.ts";
 import { getAllZones, getZone } from "../../requests/zones.ts";
@@ -139,7 +158,7 @@ export default function UsersPage() {
 
   const initialiseForm = async (userCopy: INurse | IPatient | IManager) => {
     switch (userType) {
-      case UserType.MANAGER:{
+      case UserType.MANAGER: {
         const manager = userCopy as IManager;
         setFormValues({
           id_user: manager.id_user,
@@ -151,7 +170,7 @@ export default function UsersPage() {
         });
         break;
       }
-      case UserType.NURSE:{
+      case UserType.NURSE: {
         const nurse = userCopy as INurse;
         const zoneNurse = await getZone(nurse.address.id_zone);
         if (zoneNurse) {
@@ -175,10 +194,10 @@ export default function UsersPage() {
               skills: nurse.skills,
             });
           }
-        }        
+        }
         break;
       }
-      case UserType.PATIENT:{
+      case UserType.PATIENT: {
         const patient = userCopy as IPatient;
         const zonePatient = await getZone(patient.address.id_zone);
         if (zonePatient) {
@@ -233,7 +252,7 @@ export default function UsersPage() {
       });
       setCenterList(centers);
     }
-  }
+  };
 
   const fetchUsers = async (currentPage: number, pageSize: number) => {
     try {
@@ -345,16 +364,16 @@ export default function UsersPage() {
   const handleDeleteUser = async () => {
     try {
       if (idUserToDelete != null) {
-        switch(userType) {
+        switch (userType) {
           case UserType.MANAGER:
             await deleteManager(idUserToDelete);
-          break;
+            break;
           case UserType.NURSE:
             await deleteNurse(idUserToDelete);
-          break;
+            break;
           case UserType.PATIENT:
             await deletePatient(idUserToDelete);
-          break;
+            break;
         }
         setSuccess();
       }
@@ -419,7 +438,7 @@ export default function UsersPage() {
     }));
     fetchUsers(currentPage, pageSize);
     handleCloseDialogForm();
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -460,7 +479,10 @@ export default function UsersPage() {
           }
           setSuccess();
         } catch (error) {
-          console.error("Erreur lors de la suppression de la compétence", error);
+          console.error(
+            "Erreur lors de la suppression de la compétence",
+            error,
+          );
           setSnackbarValues((prevState) => ({
             ...prevState,
             isOpen: true,
@@ -550,7 +572,7 @@ export default function UsersPage() {
         }
         break;
     }
-    handleCloseDialogForm()
+    handleCloseDialogForm();
   };
 
   return (
@@ -626,10 +648,12 @@ export default function UsersPage() {
                     required
                     fullWidth
                     value={formValues.id_center ? formValues.id_center : ""}
-                    onChange={e => (setFormValues({
-                      ...formValues,
-                      id_center: parseInt(e.target.value),
-                    }))}
+                    onChange={(e) =>
+                      setFormValues({
+                        ...formValues,
+                        id_center: parseInt(e.target.value),
+                      })
+                    }
                   >
                     {centerList.map((option) => (
                       <MenuItem

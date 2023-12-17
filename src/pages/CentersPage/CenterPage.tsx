@@ -4,7 +4,7 @@ import {
   GridToolbar,
   GridPaginationModel,
 } from "@mui/x-data-grid";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getAllCenters } from "../../requests/centers.ts";
 
@@ -71,7 +71,7 @@ export default function CenterPage() {
       headerName: "Heure de fermeture",
       type: "string",
       flex: 0.25,
-    }
+    },
   ];
 
   useEffect(() => {

@@ -14,7 +14,11 @@ import { useParams } from "react-router-dom";
 import { getMission } from "../../../requests/missions";
 import { DetailsArrayItem } from "../../../utils/types";
 import { useEffect, useState } from "react";
-import { formatAddress, formatDate, formatNumberToTime } from "../../../utils/formatUtils";
+import {
+  formatAddress,
+  formatDate,
+  formatNumberToTime,
+} from "../../../utils/formatUtils";
 
 export default function MissionPage() {
   const idMission = useParams().id;
@@ -38,7 +42,7 @@ export default function MissionPage() {
                 label: "Type de la mission",
                 value: response.mission_type.name,
               },
-              { label: "Date de début", value: formatDate(response.start)  },
+              { label: "Date de début", value: formatDate(response.start) },
               { label: "Date de fin", value: formatDate(response.end) },
               { label: "Personne requise", value: response.people_required },
               {

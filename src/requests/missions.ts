@@ -15,7 +15,7 @@ interface IMissionToAdd {
   start: string;
   end: string;
   recurrence_days: number | null;
-  people_required: number
+  people_required: number;
   minutes_duration: number;
   id_mission_type: number;
   id_patient: number;

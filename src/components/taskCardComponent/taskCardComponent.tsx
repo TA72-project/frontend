@@ -1,9 +1,4 @@
-import {
-  Divider,
-  List,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Divider, List, ListItemButton, ListItemText } from "@mui/material";
 import React from "react";
 import { formatDate } from "../../utils/formatUtils";
 
@@ -20,9 +15,8 @@ export default function TaskCardComponent({
   end,
   patient,
 }: ITaskCardComponentProps) {
-
   return (
-    <List sx={{ width: "100%"}}>
+    <List sx={{ width: "100%" }}>
       <ListItemButton alignItems="flex-start">
         <ListItemText
           primary={title}

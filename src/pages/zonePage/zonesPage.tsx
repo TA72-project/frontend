@@ -121,7 +121,7 @@ export default function ZonesPage() {
       console.error("Erreur lors de la suppression de la zone", error);
     }
   };
-    
+
   const handleSaveZone = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -287,7 +287,7 @@ export default function ZonesPage() {
                   name="name"
                   variant="outlined"
                   fullWidth
-                  style={{marginTop: "10px" }}
+                  style={{ marginTop: "10px" }}
                   value={formValues.name}
                   onChange={(e) =>
                     setFormValues({

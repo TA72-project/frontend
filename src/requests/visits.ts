@@ -52,10 +52,7 @@ export const createVisit = async (
   }
 };
 
-export const associateVisitNurse = async (
-  idVisit: number,
-  idNurse: number
-) => {
+export const associateVisitNurse = async (idVisit: number, idNurse: number) => {
   try {
     return await request.post("/visits/" + idVisit + "/nurses/" + idNurse, {});
   } catch (error) {
@@ -109,7 +106,10 @@ export const deleteVisit = async (id: number) => {
   }
 };
 
-export const dissociateNurseVisit = async (idVisit: number, idNurse: number) => {
+export const dissociateNurseVisit = async (
+  idVisit: number,
+  idNurse: number,
+) => {
   try {
     return await request.delete("/visits/" + idVisit + "/nurses/" + idNurse);
   } catch (error) {
