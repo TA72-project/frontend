@@ -1,8 +1,18 @@
 import { request } from "../utils";
+import { ICenter } from "../utils/interfaces";
+
+interface ICenterList {
+  data: Array<ICenter>;
+  page: number;
+  per_page: number;
+  total: number;
+  total_page: number;
+}
 
 export const getAllCenters = async (page: number, perPage: number) => {
   try {
-    return await request.get(`/centers?page=${page}&per_page=${perPage}`);
+    const response = await request.get(`/centers?page=${page}&per_page=${perPage}`);
+    return response as ICenterList;
   } catch (error) {
     console.error(error);
   }
@@ -10,17 +20,8 @@ export const getAllCenters = async (page: number, perPage: number) => {
 
 export const getCenter = async (id: number) => {
   try {
-    return await request.get("/centers/" + id);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getZones = async (id: number, page: number, perPage: number) => {
-  try {
-    return await request.get(
-      `/centers/` + id + `/zones?page=${page}&per_page=${perPage}`,
-    );
+    const response = await request.get("/centers/" + id);
+    return response as ICenter;
   } catch (error) {
     console.error(error);
   }

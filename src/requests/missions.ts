@@ -1,45 +1,24 @@
 import { request } from "../utils";
+import { IMission } from "../utils/interfaces";
 
-interface IMission {
-  data: Array<{
-    id: number;
-    desc: string | null;
-    start: string;
-    end: string;
-    recurrence_days: number | null;
-    people_required: number;
-    minutes_duration: number;
-    id_mission_type: number;
-    id_patient: number;
-    mission_type: {
-      id: number;
-      name: string;
-      perople_required: number;
-      minutes_duration: number;
-    };
-    patient: {
-      id: number;
-      id_user: number;
-      id_address: number;
-      fname: string;
-      lname: string;
-      mail: string;
-      phone: string | null;
-      address: {
-        id: number;
-        number: number | null;
-        street_name: string;
-        postcode: string;
-        city_name: string;
-        complement: string | null;
-        id_zone: number;
-      };
-    };
-  }>;
+interface IMissionList {
+  data: Array<IMission>;
   page: number;
   per_page: number;
   total: number;
   total_page: number;
+}
+
+interface IMissionToAdd {
+  id?: number;
+  desc: string;
+  start: string;
+  end: string;
+  recurrence_days: number | null;
+  people_required: number
+  minutes_duration: number;
+  id_mission_type: number;
+  id_patient: number;
 }
 
 export const getAllMissions = async (page: number, perPage: number) => {
@@ -47,32 +26,23 @@ export const getAllMissions = async (page: number, perPage: number) => {
     const response = await request.get(
       `/missions?page=${page}&per_page=${perPage}`,
     );
-    return response as IMission | null;
+    return response as IMissionList | null;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const createMission = async (
-  description: string,
-  start: string,
-  end: string,
-  reccurenceDays: number | null,
-  peopleRequired: number | null,
-  minutesDuration: number,
-  idMissionType: number,
-  idPatient: number,
-) => {
+export const createMission = async (mission: IMissionToAdd) => {
   try {
     return await request.post("/missions", {
-      desc: description,
-      start: start,
-      end: end,
-      reccurence_days: reccurenceDays,
-      people_required: peopleRequired,
-      minuyes_duration: minutesDuration,
-      id_mission_type: idMissionType,
-      id_patient: idPatient,
+      desc: mission.desc,
+      start: mission.start,
+      end: mission.end,
+      recurrence_days: mission.recurrence_days,
+      people_required: mission.people_required,
+      minutes_duration: mission.minutes_duration,
+      id_mission_type: mission.id_mission_type,
+      id_patient: mission.id_patient,
     });
   } catch (error) {
     console.error(error);
@@ -81,31 +51,24 @@ export const createMission = async (
 
 export const getMission = async (id: number) => {
   try {
-    return await request.get("/missions/" + id);
+    const response = await request.get("/missions/" + id);
+    return response as IMission;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const updateMission = async (
-  id: number,
-  description: string,
-  start: string,
-  end: string,
-  reccurenceDays: number | null,
-  peopleRequired: number | null,
-  minutesDuration: number,
-  idMissionType: number,
-) => {
+export const updateMission = async (mission: IMissionToAdd) => {
   try {
-    return await request.put("/missions/" + id, {
-      desc: description,
-      start: start,
-      end: end,
-      reccurence_days: reccurenceDays,
-      people_required: peopleRequired,
-      minutes_duration: minutesDuration,
-      id_mission_type: idMissionType,
+    return await request.put("/missions/" + mission.id, {
+      desc: mission.desc,
+      start: mission.start,
+      end: mission.end,
+      recurrence_days: mission.recurrence_days,
+      people_required: mission.people_required,
+      minutes_duration: mission.minutes_duration,
+      id_mission_type: mission.id_mission_type,
+      id_patient: mission.id_patient,
     });
   } catch (error) {
     console.error(error);

@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
+    "@fullcalendar/interaction": "^6.1.9",
     "@fullcalendar/react": "^6.1.9",
     "@fullcalendar/timegrid": "^6.1.9",
     "@mui/icons-material": "^5.14.14",
@@ -26,6 +27,7 @@
     "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-imask": "^7.2.0",
     "react-router-dom": "^6.17.0",
     "styled-components": "^6.1.0"
   },

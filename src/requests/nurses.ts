@@ -1,44 +1,39 @@
 import { request } from "../utils";
+import { INurse } from "../utils/interfaces";
+
+interface INurseList {
+  data: Array<INurse>;
+  page: number;
+  per_page: number;
+  total: number;
+  total_page: number;
+}
 
 export const getAllNurses = async (page: number, perPage: number) => {
   try {
-    return await request.get(`/nurses?page=${page}&per_page=${perPage}`);
+    const response = await request.get(`/nurses?page=${page}&per_page=${perPage}`);
+    return response as INurseList | null;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const createNurse = async (
-  minutesPerweek: number,
-  fname: string,
-  lname: string,
-  mail: string,
-  phone: string | null,
-  password: string,
-  address: {
-    number: number;
-    streetName: string;
-    postcode: string;
-    cityName: string;
-    complement: string | null;
-    idZone: number;
-  },
-) => {
+export const createNurse = async (nurse: INurse) => {
   try {
     return await request.post("/nurses", {
-      minutes_per_week: minutesPerweek,
-      fname: fname,
-      lname: lname,
-      mail: mail,
-      phone: phone,
-      password: password,
+      minutes_per_week: nurse.minutes_per_week,
+      fname: nurse.fname,
+      lname: nurse.lname,
+      mail: nurse.mail,
+      phone: nurse.phone,
+      password: nurse.password,
       address: {
-        number: address.number,
-        street_name: address.streetName,
-        postcode: address.postcode,
-        city_name: address.cityName,
-        complement: address.complement,
-        id_zone: address.idZone,
+        number: nurse.address.number,
+        street_name: nurse.address.street_name,
+        postcode: nurse.address.postcode,
+        city_name: nurse.address.city_name,
+        complement: nurse.address.complement,
+        id_zone: nurse.address.id_zone,
       },
     });
   } catch (error) {
@@ -48,7 +43,8 @@ export const createNurse = async (
 
 export const getNurseMe = async () => {
   try {
-    return await request.get("/nurses/me");
+    const response = await request.get("/nurses/me");
+    return response as INurse | null;
   } catch (error) {
     console.error(error);
   }
@@ -56,16 +52,31 @@ export const getNurseMe = async () => {
 
 export const getNurse = async (id: number) => {
   try {
-    return await request.get("/nurses/" + id);
+    const response = await request.get("/nurses/" + id);
+    return response as INurse | null;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const updateNurse = async (id: number, minutesPerWeek: number) => {
+export const updateNurse = async (nurse: INurse) => {
   try {
-    return await request.put("/nurses/" + id, {
-      minutes_per_week: minutesPerWeek,
+    return await request.put("/nurses/" + nurse.id, {
+      minutes_per_week: nurse.minutes_per_week,
+      fname: nurse.fname,
+      lname: nurse.lname,
+      mail: nurse.mail,
+      phone: nurse.phone,
+      id_address: nurse.id_address,
+      id_user: nurse.id_user,
+      address: {
+        number: nurse.address.number,
+        street_name: nurse.address.street_name,
+        postcode: nurse.address.postcode,
+        city_name: nurse.address.city_name,
+        complement: nurse.address.complement,
+        id_zone: nurse.address.id_zone,
+      },
     });
   } catch (error) {
     console.error(error);
