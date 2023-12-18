@@ -1,22 +1,26 @@
-interface Address {
-  id: number;
-  number: number;
-  streetName: string;
-  postCode: string;
-  cityName: string;
-  complement: string | null;
-}
+import { IAddress } from "./interfaces";
 
-export function formatAddress(address: Address): string {
-  const { number, streetName, postCode, cityName, complement } = address;
+export function formatAddress(address: IAddress): string {
+  const {
+    number: num,
+    street_name: street,
+    postcode: code,
+    city_name: city,
+    complement: comp,
+  } = address as IAddress;
+  const number = num;
+  const streetName = street;
+  const postCode = code;
+  const cityName = city;
+  const complement = comp;
 
   const addressParts = [number, streetName, postCode, cityName].filter(
-    (part) => part !== undefined,
+    (part) => part !== undefined && part !== null,
   );
 
   let formattedAddress = addressParts.join(" ");
 
-  if (complement !== null && complement !== undefined) {
+  if (complement) {
     formattedAddress += `, ${complement}`;
   }
 
@@ -59,4 +63,40 @@ export function formatNumberToTime(number: number) {
   return hours > 0 && minutes > 0
     ? `${formattedHours}${formattedMinutes}`
     : formattedHours || formattedMinutes;
+}
+
+export function formatDateToSave(date: Date): string {
+  const year = date.getFullYear();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const day = ("0" + date.getDate()).slice(-2);
+  const hours = ("0" + date.getHours()).slice(-2);
+  const minutes = ("0" + date.getMinutes()).slice(-2);
+  const seconds = ("0" + date.getSeconds()).slice(-2);
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
+
+export function formatDateForTable(date: Date): string {
+  const year = date.getFullYear();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const day = ("0" + date.getDate()).slice(-2);
+  const hours = ("0" + date.getHours()).slice(-2);
+  const minutes = ("0" + date.getMinutes()).slice(-2);
+  const seconds = ("0" + date.getSeconds()).slice(-2);
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+export function generateRandomString(): string {
+  const length = Math.floor(Math.random() * 6) + 10;
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; //!@#$%^&*()-_=+";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
 }

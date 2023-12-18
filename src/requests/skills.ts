@@ -1,8 +1,20 @@
 import { request } from "../utils";
+import { ISkill } from "../utils/interfaces";
+
+interface ISkillList {
+  data: Array<ISkill>;
+  page: number;
+  per_page: number;
+  total: number;
+  total_page: number;
+}
 
 export const getAllSkills = async (page: number, perPage: number) => {
   try {
-    return await request.get(`/skills?page=${page}&per_page=${perPage}`);
+    const response = await request.get(
+      `/skills?page=${page}&per_page=${perPage}`,
+    );
+    return response as ISkillList;
   } catch (error) {
     console.error(error);
   }
@@ -20,7 +32,8 @@ export const createSkill = async (name: string) => {
 
 export const getSkill = async (id: number) => {
   try {
-    return await request.get("/skills/" + id);
+    const response = await request.get("/skills/" + id);
+    return response as ISkill;
   } catch (error) {
     console.error(error);
   }

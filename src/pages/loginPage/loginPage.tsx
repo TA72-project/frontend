@@ -42,7 +42,7 @@ export default function LoginPage() {
         });
       });
     },
-    [formValues, navigate],
+    [formValues, navigate, setIsLogin, setUserInfo],
   );
 
   return (

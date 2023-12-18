@@ -131,7 +131,7 @@ export default function MissionsPage() {
   };
 
   return (
-    <Box textAlign="center">
+    <Box>
       <Button
         variant="contained"
         color="success"
