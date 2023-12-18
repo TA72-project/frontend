@@ -679,11 +679,14 @@ export default function PlanningPage() {
       currentDate.setSeconds(0);
       currentDate.setMilliseconds(0);
       eventList.forEach((e) => {
-        const eventStart = new Date(e.start.replace(/T.*$/, "T00:00:00")).getTime();
+        const eventStart = new Date(
+          e.start.replace(/T.*$/, "T00:00:00"),
+        ).getTime();
         const eventEnd = new Date(e.end.replace(/T.*$/, "T00:00:00")).getTime();
         if (
           eventStart == currentDate.getTime() ||
-          (eventStart < currentDate.getTime() && eventEnd >= currentDate.getTime())
+          (eventStart < currentDate.getTime() &&
+            eventEnd >= currentDate.getTime())
         ) {
           events.push(e);
         }
@@ -769,7 +772,7 @@ export default function PlanningPage() {
     if (!missions) {
       loadAllMissions();
     }
-    loadEvents();  
+    loadEvents();
   }, [dateRange.startDate, missions]);
 
   return (
@@ -982,7 +985,9 @@ export default function PlanningPage() {
                                 onChange={(value) =>
                                   setFormValues({
                                     ...formValues,
-                                    start: value?.toDate() ? value?.toDate() : new Date(),
+                                    start: value?.toDate()
+                                      ? value?.toDate()
+                                      : new Date(),
                                   })
                                 }
                                 defaultValue={dayjs(eventSelected.extra.start)}
