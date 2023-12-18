@@ -620,10 +620,12 @@ export default function VisitPage() {
                               <DateTimePicker
                                 label="Début"
                                 sx={{ width: "100%" }}
-                                onChange={(event) =>
+                                onChange={(value) =>
                                   setFormValues({
                                     ...formValues,
-                                    start: new Date(event?.$d),
+                                    start: value?.toDate()
+                                      ? value?.toDate()
+                                      : new Date(),
                                   })
                                 }
                                 defaultValue={dayjs(visitSelected.visit.start)}
@@ -648,12 +650,14 @@ export default function VisitPage() {
                                 label="Fin"
                                 sx={{ width: "100%" }}
                                 defaultValue={dayjs(visitSelected.visit.end)}
-                                onChange={(event) => {
+                                onChange={(value) =>
                                   setFormValues({
                                     ...formValues,
-                                    end: new Date(event?.$d),
-                                  });
-                                }}
+                                    end: value?.toDate()
+                                      ? value?.toDate()
+                                      : new Date(),
+                                  })
+                                }
                                 viewRenderers={{
                                   hours: renderTimeViewClock,
                                   minutes: renderTimeViewClock,
@@ -670,6 +674,7 @@ export default function VisitPage() {
                               options={allNurses}
                               getOptionLabel={(option) => option.name}
                               onChange={(event, newValue) => {
+                                event.preventDefault();
                                 setFormValues({
                                   ...formValues,
                                   nurses: newValue,

@@ -6,7 +6,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { IManager } from "../../requests/managers.ts";
+import { IManager } from "../../utils/interfaces.ts";
 
 interface IAuthContextType {
   userInfo: IManager | null | undefined;

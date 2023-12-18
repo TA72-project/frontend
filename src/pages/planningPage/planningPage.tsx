@@ -48,6 +48,7 @@ import {
   DatesSetArg,
   EventClickArg,
   EventContentArg,
+  EventSourceInput,
 } from "@fullcalendar/core/index.js";
 import frLocale from "@fullcalendar/core/locales/fr";
 import { getAllMissions } from "../../requests/missions.ts";
@@ -672,14 +673,17 @@ export default function PlanningPage() {
   const loadTodayEvent = () => {
     if (todayEvents == null && eventList) {
       const events: Event[] = [];
-      const todayStr = new Date().toISOString().replace(/T.*$/, "");
+      const currentDate = new Date();
+      currentDate.setHours(0);
+      currentDate.setMinutes(0);
+      currentDate.setSeconds(0);
+      currentDate.setMilliseconds(0);
       eventList.forEach((e) => {
-        const eventStart = e.start.replace(/T.*$/, "");
-        const eventEnd = e.end.replace(/T.*$/, "");
+        const eventStart = new Date(e.start.replace(/T.*$/, "T00:00:00")).getTime();
+        const eventEnd = new Date(e.end.replace(/T.*$/, "T00:00:00")).getTime();
         if (
-          eventStart === todayStr ||
-          (new Date(eventStart) < new Date(todayStr) &&
-            new Date(eventEnd) >= new Date(todayStr))
+          eventStart == currentDate.getTime() ||
+          (eventStart < currentDate.getTime() && eventEnd >= currentDate.getTime())
         ) {
           events.push(e);
         }
@@ -765,7 +769,7 @@ export default function PlanningPage() {
     if (!missions) {
       loadAllMissions();
     }
-    loadEvents();
+    loadEvents();  
   }, [dateRange.startDate, missions]);
 
   return (
@@ -839,7 +843,7 @@ export default function PlanningPage() {
                 datesSet={changeDatesSet}
                 droppable={false}
                 eventClick={handleEventClick}
-                events={eventList}
+                events={eventList as EventSourceInput}
               />
             </Paper>
           </Grid>
@@ -975,10 +979,10 @@ export default function PlanningPage() {
                                       eventSelected.extra.duration * 60000,
                                   ),
                                 )}
-                                onChange={(event) =>
+                                onChange={(value) =>
                                   setFormValues({
                                     ...formValues,
-                                    start: new Date(event?.$d),
+                                    start: value?.toDate() ? value?.toDate() : new Date(),
                                   })
                                 }
                                 defaultValue={dayjs(eventSelected.extra.start)}
@@ -1012,10 +1016,12 @@ export default function PlanningPage() {
                                   eventSelected.extra.eventEnd,
                                 )}
                                 defaultValue={dayjs(eventSelected.extra.end)}
-                                onChange={(event) => {
+                                onChange={(value) => {
                                   setFormValues({
                                     ...formValues,
-                                    end: new Date(event?.$d),
+                                    end: value?.toDate()
+                                      ? value?.toDate()
+                                      : new Date(),
                                   });
                                 }}
                                 viewRenderers={{
@@ -1034,6 +1040,7 @@ export default function PlanningPage() {
                               options={allNurses}
                               getOptionLabel={(option) => option.name}
                               onChange={(event, newValue) => {
+                                event.preventDefault();
                                 setFormValues({
                                   ...formValues,
                                   nurses: newValue,

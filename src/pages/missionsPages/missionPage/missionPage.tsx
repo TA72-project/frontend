@@ -13,7 +13,7 @@ import "dayjs/locale/fr";
 import { useParams } from "react-router-dom";
 import { getMission } from "../../../requests/missions";
 import { DetailsArrayItem } from "../../../utils/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   formatAddress,
   formatDate,
@@ -80,9 +80,7 @@ export default function MissionPage() {
     }
   };
 
-  useEffect(() => {
-    loadMission();
-  }, [idMission]);
+  loadMission();
 
   if (missionInfo.title == "" || patientInfo.title == "") {
     return <div>{"Page is loading ..."}</div>;
