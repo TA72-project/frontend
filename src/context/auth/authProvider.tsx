@@ -6,7 +6,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { IManager } from "../../requests/managers.ts";
+import { IManager } from "../../utils/interfaces.ts";
 
 interface IAuthContextType {
   userInfo: IManager | null | undefined;
@@ -38,6 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): IAuthContextType => {
   return useContext(AuthContext);
 };

@@ -1,21 +1,27 @@
 import HomeIcon from "@mui/icons-material/Home";
+import MapIcon from "@mui/icons-material/Map";
+import PeopleIcon from "@mui/icons-material/People";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import MapIcon from "@mui/icons-material/Map";
+import StarIcon from "@mui/icons-material/Star";
 import PersonIcon from "@mui/icons-material/Person";
-import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import BallotIcon from "@mui/icons-material/Ballot";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
-import AvailabilityPage from "../pages/availabilityPage/availabilityPage.tsx";
 import DashboardPage from "../pages/dashboardPage/dashboardPage.tsx";
 import MissionsPage from "../pages/missionsPages/missionsPage/missionsPage.tsx";
 import PlanningPage from "../pages/planningPage/planningPage.tsx";
-import JourneysPage from "../pages/journeysPage/journeysPage.tsx";
 import MissionPage from "../pages/missionsPages/missionPage/missionPage.tsx";
 import NavbarComponent from "../components/navbarComponent/navbarComponent.tsx";
 import ProfilePage from "../pages/profilePage/profilePage.tsx";
 import MissionsTypePage from "../pages/missionsTypePages/missionTypePage/missionTypePage.tsx";
 import MissionTypeForm from "../pages/missionsTypePages/missionTypeFormPage/missionTypeForm.tsx";
 import { ReactElement } from "react";
+import SkillsPage from "../pages/skillPage/skillsPage.tsx";
+import CenterPage from "../pages/CentersPage/CenterPage.tsx";
+import VisitPage from "../pages/VisitsPage/VisitPage.tsx";
+import UsersPage from "../pages/userPages/usersPage.tsx";
+import ZonesPage from "../pages/zonePage/zonesPage.tsx";
 
 type page = {
   text: string;
@@ -27,7 +33,7 @@ type page = {
 const pages: page[] = [
   {
     text: "Tableau de bord",
-    icons: <HomeIcon />,
+    icons: <DashboardIcon />,
     path: "tableau_de_bord",
     element: (
       <NavbarComponent selectedIndex={0} breadcumbs={[0]}>
@@ -66,22 +72,52 @@ const pages: page[] = [
     ),
   },
   {
-    text: "Trajets",
-    icons: <MapIcon />,
-    path: "trajets",
+    text: "Visites",
+    icons: <BallotIcon />,
+    path: "visites",
     element: (
       <NavbarComponent selectedIndex={4} breadcumbs={[4]}>
-        <JourneysPage />
+        <VisitPage />
       </NavbarComponent>
     ),
   },
   {
-    text: "Disponibilités",
-    icons: <AssignmentTurnedInIcon />,
-    path: "disponibilites",
+    text: "Compétences",
+    icons: <StarIcon />,
+    path: "competences",
     element: (
       <NavbarComponent selectedIndex={5} breadcumbs={[5]}>
-        <AvailabilityPage />
+        <SkillsPage />
+      </NavbarComponent>
+    ),
+  },
+  {
+    text: "Centres",
+    icons: <HomeIcon />,
+    path: "Centres",
+    element: (
+      <NavbarComponent selectedIndex={6} breadcumbs={[6]}>
+        <CenterPage />
+      </NavbarComponent>
+    ),
+  },
+  {
+    text: "Zones",
+    icons: <MapIcon />,
+    path: "Zones",
+    element: (
+      <NavbarComponent selectedIndex={7} breadcumbs={[7]}>
+        <ZonesPage />
+      </NavbarComponent>
+    ),
+  },
+  {
+    text: "Utilisateurs",
+    icons: <PeopleIcon />,
+    path: "Utilisateurs",
+    element: (
+      <NavbarComponent selectedIndex={8} breadcumbs={[8]}>
+        <UsersPage />
       </NavbarComponent>
     ),
   },
@@ -90,7 +126,7 @@ const pages: page[] = [
     icons: <AssignmentIcon />,
     path: "detail_mission/:id",
     element: (
-      <NavbarComponent selectedIndex={1} breadcumbs={[1, 6]}>
+      <NavbarComponent selectedIndex={1} breadcumbs={[1, 9]}>
         <MissionPage />
       </NavbarComponent>
     ),
@@ -100,7 +136,7 @@ const pages: page[] = [
     icons: <PersonIcon />,
     path: "profil",
     element: (
-      <NavbarComponent selectedIndex={-1} breadcumbs={[7]}>
+      <NavbarComponent selectedIndex={-1} breadcumbs={[10]}>
         <ProfilePage />
       </NavbarComponent>
     ),
@@ -110,7 +146,7 @@ const pages: page[] = [
     icons: <CollectionsBookmarkIcon />,
     path: "mission_type_form/:id?",
     element: (
-      <NavbarComponent selectedIndex={2} breadcumbs={[2, 8]}>
+      <NavbarComponent selectedIndex={2} breadcumbs={[2, 11]}>
         <MissionTypeForm />
       </NavbarComponent>
     ),

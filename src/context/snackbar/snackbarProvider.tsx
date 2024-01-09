@@ -9,6 +9,7 @@ export const SnackbarProvider: FC<{ children: ReactNode }> = ({ children }) => {
     isOpen: false,
     duration: 3000,
     severity: "success",
+    message: "",
   });
 
   const sharedValues: ISnackbarContext = {
@@ -30,7 +31,9 @@ export const SnackbarProvider: FC<{ children: ReactNode }> = ({ children }) => {
             setSnackbarValues((prevState) => ({ ...prevState, isOpen: false }))
           }
           severity={snackbarValues.severity}
-        ></Alert>
+        >
+          {snackbarValues.message}
+        </Alert>
       </Snackbar>
       {children}
     </SnackbarContext.Provider>

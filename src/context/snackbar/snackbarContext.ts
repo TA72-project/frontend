@@ -4,6 +4,7 @@ export interface ISnackbarValues {
   isOpen: boolean;
   duration: number;
   severity: "error" | "warning" | "success" | "info";
+  message: string;
 }
 export interface ISnackbarContext {
   snackbarValues: ISnackbarValues;
