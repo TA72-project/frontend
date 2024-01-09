@@ -773,7 +773,7 @@ export default function PlanningPage() {
       loadAllMissions();
     }
     loadEvents();
-  }, [dateRange.startDate, missions]);
+  }, [dateRange.startDate, missions, loadEvents]);
 
   return (
     <div>
