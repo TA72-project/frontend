@@ -36,7 +36,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
@@ -304,49 +304,76 @@ export default function PlanningPage() {
     }
   };
 
-  const getStatusEvent = (
-    mission_id: number,
-    mission_start: Date,
-    mission_end: Date,
-  ) => {
-    const visitRelated: Array<IVisit> | undefined = visits
-      ?.get(mission_id)
-      ?.filter(
-        (v) =>
-          new Date(v.start).getTime() >= mission_start.getTime() &&
-          new Date(v.start).getTime() <= mission_end.getTime(),
-      );
-    if (visitRelated && visitRelated.length > 0) {
-      if (mission_start.getTime() > new Date().getTime()) {
-        return {
-          status: Status.AFFECTED,
-          idVisit: visitRelated[0].id,
-          editable: true,
-        };
+  const getStatusEvent = useCallback(
+    (mission_id: number, mission_start: Date, mission_end: Date) => {
+      const visitRelated: Array<IVisit> | undefined = visits
+        ?.get(mission_id)
+        ?.filter(
+          (v) =>
+            new Date(v.start).getTime() >= mission_start.getTime() &&
+            new Date(v.start).getTime() <= mission_end.getTime(),
+        );
+      if (visitRelated && visitRelated.length > 0) {
+        if (mission_start.getTime() > new Date().getTime()) {
+          return {
+            status: Status.AFFECTED,
+            idVisit: visitRelated[0].id,
+            editable: true,
+          };
+        } else {
+          return {
+            status: Status.DONE,
+            idVisit: visitRelated[0].id,
+            editable: false,
+          };
+        }
       } else {
-        return {
-          status: Status.DONE,
-          idVisit: visitRelated[0].id,
-          editable: false,
-        };
+        if (mission_start.getTime() > new Date().getTime()) {
+          return { status: Status.PENDING, editable: true };
+        } else {
+          return { status: Status.MISSED, editable: false };
+        }
       }
-    } else {
-      if (mission_start.getTime() > new Date().getTime()) {
-        return { status: Status.PENDING, editable: true };
-      } else {
-        return { status: Status.MISSED, editable: false };
-      }
+    },
+    [visits],
+  );
+
+  const getInfoVisit = useCallback(
+    (idMission: number, idVisit: number) => {
+      const visitRelated = visits
+        ?.get(idMission)
+        ?.filter((v) => v.id == idVisit)[0];
+      return visitRelated;
+    },
+    [visits],
+  );
+
+  const loadTodayEvent = useCallback(() => {
+    if (todayEvents == null && eventList) {
+      const events: Event[] = [];
+      const currentDate = new Date();
+      currentDate.setHours(0);
+      currentDate.setMinutes(0);
+      currentDate.setSeconds(0);
+      currentDate.setMilliseconds(0);
+      eventList.forEach((e) => {
+        const eventStart = new Date(
+          e.start.replace(/T.*$/, "T00:00:00"),
+        ).getTime();
+        const eventEnd = new Date(e.end.replace(/T.*$/, "T00:00:00")).getTime();
+        if (
+          eventStart == currentDate.getTime() ||
+          (eventStart < currentDate.getTime() &&
+            eventEnd >= currentDate.getTime())
+        ) {
+          events.push(e);
+        }
+      });
+      setTodayEvents(events);
     }
-  };
+  }, [eventList, todayEvents]);
 
-  const getInfoVisit = (idMission: number, idVisit: number) => {
-    const visitRelated = visits
-      ?.get(idMission)
-      ?.filter((v) => v.id == idVisit)[0];
-    return visitRelated;
-  };
-
-  const loadEvents = () => {
+  const loadEvents = useCallback(() => {
     if (missions) {
       const events: Event[] = [];
       missions.forEach((mission) => {
@@ -508,7 +535,14 @@ export default function PlanningPage() {
       setEventList(events);
       loadTodayEvent();
     }
-  };
+  }, [
+    dateRange.endDate,
+    dateRange.startDate,
+    getInfoVisit,
+    getStatusEvent,
+    loadTodayEvent,
+    missions,
+  ]);
 
   const changeDatesSet = (dateInfo: DatesSetArg) => {
     const newStartDate = new Date(dateInfo.startStr);
@@ -667,31 +701,6 @@ export default function PlanningPage() {
       };
       setEventSelected(sEvent);
       handleClickOpenDialogForm();
-    }
-  };
-
-  const loadTodayEvent = () => {
-    if (todayEvents == null && eventList) {
-      const events: Event[] = [];
-      const currentDate = new Date();
-      currentDate.setHours(0);
-      currentDate.setMinutes(0);
-      currentDate.setSeconds(0);
-      currentDate.setMilliseconds(0);
-      eventList.forEach((e) => {
-        const eventStart = new Date(
-          e.start.replace(/T.*$/, "T00:00:00"),
-        ).getTime();
-        const eventEnd = new Date(e.end.replace(/T.*$/, "T00:00:00")).getTime();
-        if (
-          eventStart == currentDate.getTime() ||
-          (eventStart < currentDate.getTime() &&
-            eventEnd >= currentDate.getTime())
-        ) {
-          events.push(e);
-        }
-      });
-      setTodayEvents(events);
     }
   };
 
