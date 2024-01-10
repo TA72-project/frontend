@@ -17,11 +17,6 @@ import {
   DialogActions,
   TextField,
   DialogContentText,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   Grid,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -42,7 +37,7 @@ interface ISelectField {
 
 export default function ZonesPage() {
   const { snackbarValues, setSnackbarValues } = useSnack();
-  const [idCenter, setIdCenter] = useState("1");
+  const [idCenter, _] = useState("1");
   const [centerList, setCenterList] = useState<ISelectField[]>([]);
   const [zoneList, setZoneList] = useState<IZone[]>([]);
   const [idZoneToDelete, setIdZoneToDelete] = useState<number>();
@@ -51,11 +46,9 @@ export default function ZonesPage() {
   const [formValues, setFormValues] = useState<{
     id: number | null;
     name: string;
-    id_center: number;
   }>({
     id: null,
     name: "",
-    id_center: 0,
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -126,9 +119,9 @@ export default function ZonesPage() {
     e.preventDefault();
     try {
       if (formValues.id != null) {
-        await updateZone(formValues.id, formValues.name, formValues.id_center);
+        await updateZone(formValues.id, formValues.name);
       } else {
-        await createZone(formValues.name, formValues.id_center);
+        await createZone(formValues.name);
       }
       setSnackbarValues((prevState) => ({
         ...prevState,
@@ -159,7 +152,6 @@ export default function ZonesPage() {
     setFormValues({
       id: null,
       name: "",
-      id_center: 0,
     });
   };
 
@@ -224,22 +216,6 @@ export default function ZonesPage() {
           {snackbarValues.severity === "error"}
         </div>
       )}
-      <FormControl style={{ minWidth: "250px" }}>
-        <InputLabel>Centre</InputLabel>
-        <Select
-          value={idCenter}
-          label="Centre"
-          onChange={(event: SelectChangeEvent) =>
-            setIdCenter(event.target.value)
-          }
-        >
-          {centerList.map((value, index) => (
-            <MenuItem key={"center" + index} value={value.value}>
-              {value.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
       <Button
         variant="contained"
         color="success"
@@ -278,60 +254,34 @@ export default function ZonesPage() {
           {"Formulaire de "}
           {formValues.name != "" ? "modification" : "création"}
         </DialogTitle>
-        <DialogContent>
-          <form onSubmit={handleSaveZone}>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <TextField
-                  label="Désignation"
-                  name="name"
-                  variant="outlined"
-                  fullWidth
-                  style={{ marginTop: "10px" }}
-                  value={formValues.name}
-                  onChange={(e) =>
-                    setFormValues({
-                      ...formValues,
-                      name: e.target.value,
-                    })
-                  }
-                  required
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  select
-                  label="Centre"
-                  required
-                  fullWidth
-                  value={formValues.id_center ? formValues.id_center : ""}
-                  onChange={(e) =>
-                    setFormValues({
-                      ...formValues,
-                      id_center: parseInt(e.target.value) as number,
-                    })
-                  }
-                >
-                  {centerList.map((option) => (
-                    <MenuItem
-                      key={"Center" + option.value}
-                      value={option.value}
-                    >
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
+        <form onSubmit={handleSaveZone}>
+          <DialogContent>
+            <Grid item xs={12}>
+              <TextField
+                label="Désignation"
+                name="name"
+                variant="outlined"
+                fullWidth
+                style={{ marginTop: "10px" }}
+                value={formValues.name}
+                onChange={(e) =>
+                  setFormValues({
+                    ...formValues,
+                    name: e.target.value,
+                  })
+                }
+                required
+                autoFocus
+              />
             </Grid>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialogForm}>Fermer</Button>
-          <Button type="submit" autoFocus>
-            Enregistrer
-          </Button>
-        </DialogActions>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialogForm}>Fermer</Button>
+            <Button type="submit" autoFocus>
+              Enregistrer
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
       <Dialog open={openDelete} onClose={handleCloseDelete}>
         <DialogTitle>Supprimer une compétence</DialogTitle>

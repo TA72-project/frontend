@@ -24,11 +24,10 @@ export const getAllZones = async (
   }
 };
 
-export const createZone = async (name: string, id_center: number) => {
+export const createZone = async (name: string) => {
   try {
     return await request.post("/zones", {
       name,
-      id_center,
     });
   } catch (error) {
     console.error(error);
@@ -47,12 +46,10 @@ export const getZone = async (id: number) => {
 export const updateZone = async (
   id: number,
   name: string,
-  id_center: number,
 ) => {
   try {
     return await request.put("/zones/" + id, {
       name,
-      id_center,
     });
   } catch (error) {
     console.error(error);

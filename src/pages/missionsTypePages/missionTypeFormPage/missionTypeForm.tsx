@@ -46,21 +46,21 @@ export default function MissionTypeForm() {
       const response = await getMissionType(id);
       const typedResponse: {
         name: string;
-        peopleRequired: number;
-        minutesDuration: number;
+        people_required: number;
+        minutes_duration: number;
       } | null = response as {
         name: string;
-        peopleRequired: number;
-        minutesDuration: number;
+        people_required: number;
+        minutes_duration: number;
       } | null;
       if (typedResponse != null) {
         setFormValues({
           name: typedResponse.name,
-          people_required: typedResponse.peopleRequired
-            ? typedResponse.peopleRequired
+          people_required: typedResponse.people_required
+            ? typedResponse.people_required
             : 0,
-          minutes_duration: typedResponse.minutesDuration
-            ? typedResponse.minutesDuration
+          minutes_duration: typedResponse.minutes_duration
+            ? typedResponse.minutes_duration
             : 0,
         });
       }
