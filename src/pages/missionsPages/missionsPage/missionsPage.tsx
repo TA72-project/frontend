@@ -63,12 +63,14 @@ export default function MissionsPage() {
   const navigate = useNavigate();
   const { snackbarValues, setSnackbarValues } = useSnack();
   const [missionList, setMissionList] = useState<IMission[]>([]);
-  const [missionTypeList, setMissionTypeList] = useState<Array<{
-    name: string,
-    value: number,
-    people_required: number,
-    duration: number,
-  }>>([]);
+  const [missionTypeList, setMissionTypeList] = useState<
+    Array<{
+      name: string;
+      value: number;
+      people_required: number;
+      duration: number;
+    }>
+  >([]);
   const [patientList, setPatientList] = useState<ISelectField[]>([]);
   const [idMissionToDelete, setIdMissionToDelete] = useState<number>();
   const [openDialogForm, setOpenDialogForm] = useState(false);
@@ -111,10 +113,10 @@ export default function MissionsPage() {
   const loadMissionTypes = async () => {
     let total: number | undefined;
     const missionTypes: Array<{
-      name: string,
-      value: number,
-      people_required: number,
-      duration: number,
+      name: string;
+      value: number;
+      people_required: number;
+      duration: number;
     }> = [];
     await getAllMissionType(1, 1).then((value) => (total = value?.total));
     if (total) {
@@ -462,8 +464,12 @@ export default function MissionsPage() {
                     setFormValues({
                       ...formValues,
                       id_mission_type: parseInt(e.target.value),
-                      people_required: missionTypeList.filter(mt => mt.value == parseInt(e.target.value))[0].people_required,
-                      minutes_duration: missionTypeList.filter(mt => mt.value == parseInt(e.target.value))[0].duration,
+                      people_required: missionTypeList.filter(
+                        (mt) => mt.value == parseInt(e.target.value),
+                      )[0].people_required,
+                      minutes_duration: missionTypeList.filter(
+                        (mt) => mt.value == parseInt(e.target.value),
+                      )[0].duration,
                     })
                   }
                 >

@@ -43,10 +43,7 @@ export const getZone = async (id: number) => {
   }
 };
 
-export const updateZone = async (
-  id: number,
-  name: string,
-) => {
+export const updateZone = async (id: number, name: string) => {
   try {
     return await request.put("/zones/" + id, {
       name,
