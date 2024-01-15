@@ -6,11 +6,9 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Button,
   Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/auth/authProvider.tsx";
 
 const drawerWidth = 240;
@@ -47,7 +45,6 @@ export const AppBarComponent: React.FC<AppBarComponentProps> = ({
   open,
 }) => {
   const { userInfo } = useAuth();
-  const navigate = useNavigate();
 
   return (
     <AppBar position="fixed" open={open}>
@@ -68,9 +65,7 @@ export const AppBarComponent: React.FC<AppBarComponentProps> = ({
           sx={{ flexGrow: 1, mr: "auto" }}
           component="div"
         ></Typography>
-        <Button variant="text" onClick={() => navigate("/profil")}>
-          <Avatar>{userInfo && userInfo?.fname[0] + userInfo?.lname[0]}</Avatar>
-        </Button>
+        <Avatar>{userInfo && userInfo?.fname[0] + userInfo?.lname[0]}</Avatar>
       </Toolbar>
     </AppBar>
   );

@@ -4,14 +4,12 @@ import PeopleIcon from "@mui/icons-material/People";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import StarIcon from "@mui/icons-material/Star";
-import PersonIcon from "@mui/icons-material/Person";
 import BallotIcon from "@mui/icons-material/Ballot";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import MissionsPage from "../pages/missionsPages/missionsPage/missionsPage.tsx";
 import PlanningPage from "../pages/planningPage/planningPage.tsx";
 import MissionPage from "../pages/missionsPages/missionPage/missionPage.tsx";
 import NavbarComponent from "../components/navbarComponent/navbarComponent.tsx";
-import ProfilePage from "../pages/profilePage/profilePage.tsx";
 import MissionsTypePage from "../pages/missionsTypePages/missionTypePage/missionTypePage.tsx";
 import MissionTypeForm from "../pages/missionsTypePages/missionTypeFormPage/missionTypeForm.tsx";
 import { ReactElement } from "react";
@@ -116,16 +114,6 @@ const pages: page[] = [
     element: (
       <NavbarComponent selectedIndex={1} breadcumbs={[1, 9]}>
         <MissionPage />
-      </NavbarComponent>
-    ),
-  },
-  {
-    text: "Mon profilePage",
-    icons: <PersonIcon />,
-    path: "profil",
-    element: (
-      <NavbarComponent selectedIndex={-1} breadcumbs={[10]}>
-        <ProfilePage />
       </NavbarComponent>
     ),
   },
