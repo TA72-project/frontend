@@ -35,6 +35,7 @@ export const createPatient = async (patient: IPatient) => {
         complement: patient.address.complement,
         id_zone: patient.address.id_zone,
       },
+      password: patient.password,
     });
   } catch (error) {
     console.error(error);

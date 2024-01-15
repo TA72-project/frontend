@@ -544,6 +544,7 @@ export default function UsersPage() {
               id_user: formValues.id_user,
               id_address: formValues.id_address,
               address: address,
+              password: generateRandomString(),
             });
           } else {
             if (address) {
@@ -553,6 +554,7 @@ export default function UsersPage() {
                 mail: formValues.mail,
                 phone: formValues.phone,
                 address: address,
+                password: generateRandomString(),
               });
             }
           }

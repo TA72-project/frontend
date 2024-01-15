@@ -72,6 +72,7 @@ export interface IPatient {
   mail: string;
   phone: string;
   address: IAddress;
+  password: string,
 }
 
 export interface INurseVisit {
