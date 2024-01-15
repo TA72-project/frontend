@@ -17,7 +17,7 @@ export default function NotFoundPage() {
     >
       <Typography variant="h3">Page non trouvée ou inexistante</Typography>
       <Typography>
-        <Link href="/tableau_de_bord">Retourner sur tableau de bord</Link>
+        <Link href="/planningPage">Retourner sur le planning</Link>
       </Typography>
     </Box>
   );

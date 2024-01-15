@@ -5,10 +5,8 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import StarIcon from "@mui/icons-material/Star";
 import PersonIcon from "@mui/icons-material/Person";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import BallotIcon from "@mui/icons-material/Ballot";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
-import DashboardPage from "../pages/dashboardPage/dashboardPage.tsx";
 import MissionsPage from "../pages/missionsPages/missionsPage/missionsPage.tsx";
 import PlanningPage from "../pages/planningPage/planningPage.tsx";
 import MissionPage from "../pages/missionsPages/missionPage/missionPage.tsx";
@@ -31,16 +29,6 @@ type page = {
 };
 
 const pages: page[] = [
-  {
-    text: "Tableau de bord",
-    icons: <DashboardIcon />,
-    path: "tableau_de_bord",
-    element: (
-      <NavbarComponent selectedIndex={0} breadcumbs={[0]}>
-        <DashboardPage />
-      </NavbarComponent>
-    ),
-  },
   {
     text: "Missions",
     icons: <AssignmentIcon />,

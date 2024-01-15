@@ -35,7 +35,7 @@ export default function LoginPage() {
     (e: React.MouseEvent) => {
       e.preventDefault();
       login(formValues.mail, formValues.password).then(() => {
-        navigate("/tableau_de_bord");
+        navigate("/planningPage");
         setIsLogin((prevState) => !prevState);
         getMe().then((value) => {
           setUserInfo(value);
