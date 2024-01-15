@@ -32,7 +32,7 @@ const pages: page[] = [
     icons: <AssignmentIcon />,
     path: "missionsPages",
     element: (
-      <NavbarComponent selectedIndex={1} breadcumbs={[1]}>
+      <NavbarComponent selectedIndex={0} breadcumbs={[0]}>
         <MissionsPage />
       </NavbarComponent>
     ),
@@ -42,7 +42,7 @@ const pages: page[] = [
     icons: <CollectionsBookmarkIcon />,
     path: "type_de_mission",
     element: (
-      <NavbarComponent selectedIndex={2} breadcumbs={[2]}>
+      <NavbarComponent selectedIndex={1} breadcumbs={[1]}>
         <MissionsTypePage />
       </NavbarComponent>
     ),
@@ -52,7 +52,7 @@ const pages: page[] = [
     icons: <CalendarMonthIcon />,
     path: "planningPage",
     element: (
-      <NavbarComponent selectedIndex={3} breadcumbs={[3]}>
+      <NavbarComponent selectedIndex={2} breadcumbs={[2]}>
         <PlanningPage />
       </NavbarComponent>
     ),
@@ -62,7 +62,7 @@ const pages: page[] = [
     icons: <BallotIcon />,
     path: "visites",
     element: (
-      <NavbarComponent selectedIndex={4} breadcumbs={[4]}>
+      <NavbarComponent selectedIndex={3} breadcumbs={[3]}>
         <VisitPage />
       </NavbarComponent>
     ),
@@ -72,7 +72,7 @@ const pages: page[] = [
     icons: <StarIcon />,
     path: "competences",
     element: (
-      <NavbarComponent selectedIndex={5} breadcumbs={[5]}>
+      <NavbarComponent selectedIndex={4} breadcumbs={[4]}>
         <SkillsPage />
       </NavbarComponent>
     ),
@@ -82,7 +82,7 @@ const pages: page[] = [
     icons: <HomeIcon />,
     path: "Centres",
     element: (
-      <NavbarComponent selectedIndex={6} breadcumbs={[6]}>
+      <NavbarComponent selectedIndex={5} breadcumbs={[5]}>
         <CenterPage />
       </NavbarComponent>
     ),
@@ -92,7 +92,7 @@ const pages: page[] = [
     icons: <MapIcon />,
     path: "Zones",
     element: (
-      <NavbarComponent selectedIndex={7} breadcumbs={[7]}>
+      <NavbarComponent selectedIndex={6} breadcumbs={[6]}>
         <ZonesPage />
       </NavbarComponent>
     ),
@@ -102,7 +102,7 @@ const pages: page[] = [
     icons: <PeopleIcon />,
     path: "Utilisateurs",
     element: (
-      <NavbarComponent selectedIndex={8} breadcumbs={[8]}>
+      <NavbarComponent selectedIndex={7} breadcumbs={[7]}>
         <UsersPage />
       </NavbarComponent>
     ),
@@ -112,7 +112,7 @@ const pages: page[] = [
     icons: <AssignmentIcon />,
     path: "detail_mission/:id",
     element: (
-      <NavbarComponent selectedIndex={1} breadcumbs={[1, 9]}>
+      <NavbarComponent selectedIndex={0} breadcumbs={[0, 8]}>
         <MissionPage />
       </NavbarComponent>
     ),
@@ -122,7 +122,7 @@ const pages: page[] = [
     icons: <CollectionsBookmarkIcon />,
     path: "mission_type_form/:id?",
     element: (
-      <NavbarComponent selectedIndex={2} breadcumbs={[2, 11]}>
+      <NavbarComponent selectedIndex={1} breadcumbs={[1, 9]}>
         <MissionTypeForm />
       </NavbarComponent>
     ),

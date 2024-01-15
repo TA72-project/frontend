@@ -108,7 +108,7 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = (
       </DrawerHeader>
       <Divider />
       <List>
-        {pages.slice(0, 9).map(({ text, icons, path }, index) => (
+        {pages.slice(0, 8).map(({ text, icons, path }, index) => (
           <ListItem key={text} disablePadding sx={{ display: "block" }}>
             <ListItemButton
               onClick={() => {
