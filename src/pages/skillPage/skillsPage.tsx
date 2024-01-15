@@ -1,5 +1,6 @@
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   DataGrid,
   GridColDef,
@@ -17,6 +18,11 @@ import {
   DialogActions,
   TextField,
   DialogContentText,
+  List,
+  ListItem,
+  Checkbox,
+  ListItemText,
+  IconButton,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
@@ -26,7 +32,16 @@ import {
   updateSkill,
 } from "../../requests/skills.ts";
 import { useSnack } from "../../context/snackbar/snackbarContext.ts";
-import { ISkill } from "../../utils/interfaces.ts";
+import { INurse, ISkill } from "../../utils/interfaces.ts";
+import { request } from "../../utils";
+
+interface INurseList {
+  data: Array<INurse>;
+  page: number;
+  per_page: number;
+  total: number;
+  total_page: number;
+}
 
 export default function SkillsPage() {
   const { snackbarValues, setSnackbarValues } = useSnack();
@@ -44,6 +59,23 @@ export default function SkillsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [rowCount, setRowCount] = useState(0);
+  const [items, setItems] = useState<INurseList>();
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+
+  const handleCheckboxChange = (id: number | undefined) => {
+    if (id !== undefined) {
+      const currentIndex = checkedItems.indexOf(id);
+      const newCheckedItems = [...checkedItems];
+
+      if (currentIndex === -1) {
+        newCheckedItems.push(id);
+      } else {
+        newCheckedItems.splice(currentIndex, 1);
+      }
+
+      setCheckedItems(newCheckedItems);
+    }
+  };
 
   const openEditForm = (skill: ISkill) => {
     setFormValues(skill);
@@ -174,6 +206,34 @@ export default function SkillsPage() {
     setPageSize(params.pageSize);
   };
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const getSearchedNurse = async (searchTerm: string) => {
+    try {
+      const response = await request.get(
+        `/nurses?page=1&per_page=5&search=${searchTerm}`,
+      );
+      const responseTyped = response as INurseList | null;
+      if (responseTyped !== null) {
+        setItems(responseTyped);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getSearchedNurse(searchTerm);
+  }, [searchTerm]);
+
+  const handleSearchChange = (event: any) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm("");
+  };
+
   return (
     <Box>
       {snackbarValues.isOpen && (
@@ -235,6 +295,38 @@ export default function SkillsPage() {
             }
             autoFocus
           />
+          <TextField
+            sx={{ mt: 2 }}
+            label="Infirmier"
+            variant="outlined"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={handleClearSearch} size="large">
+                  <SearchIcon />
+                </IconButton>
+              ),
+            }}
+          />
+          <List>
+            {items?.data.map((nurse) => (
+              <ListItem
+                key={nurse.id}
+                onClick={() => handleCheckboxChange(nurse.id)}
+              >
+                <Checkbox
+                  edge="start"
+                  tabIndex={-1}
+                  checked={
+                    nurse.id !== undefined && checkedItems.includes(nurse.id)
+                  }
+                  disableRipple
+                />
+                <ListItemText primary={`${nurse.fname} ${nurse.lname}`} />
+              </ListItem>
+            ))}
+          </List>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialogForm}>Fermer</Button>
@@ -247,7 +339,7 @@ export default function SkillsPage() {
         <DialogTitle>Supprimer une compétence</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Etes-vous sûr de vouloir supprimer cette compétence ? <br />
+            Etes-vous sûr de vouloir supprimer cette compétence ?<br />
             Cette action est irréversible
           </DialogContentText>
         </DialogContent>
