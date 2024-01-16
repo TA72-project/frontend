@@ -358,26 +358,24 @@ export default function UsersPage() {
     if (total) {
       await getAllCenters(1, total).then((value) => {
         if (value) {
-          value.data.map(async (center) =>
-            {
-              await getAllZones(center.id, 1, 1).then(
-                (value) => (total1 = value?.total),
-              );
-              if (total1) {
-                await getAllZones(center.id, 1, total1).then((value) => {
-                  if (value) {
-                    value.data.map((zone) =>
-                      zones.push({
-                        name: zone.name,
-                        value: zone.id,
-                      }),
-                    );
-                  }
-                });
-              }
-              setAllZoneList(zones);
+          value.data.map(async (center) => {
+            await getAllZones(center.id, 1, 1).then(
+              (value) => (total1 = value?.total),
+            );
+            if (total1) {
+              await getAllZones(center.id, 1, total1).then((value) => {
+                if (value) {
+                  value.data.map((zone) =>
+                    zones.push({
+                      name: zone.name,
+                      value: zone.id,
+                    }),
+                  );
+                }
+              });
             }
-          );
+            setAllZoneList(zones);
+          });
         }
       });
     }
@@ -802,7 +800,11 @@ export default function UsersPage() {
                     type="number"
                     required
                     fullWidth
-                    value={formValues.minutes_per_week ? formValues.minutes_per_week : 0}
+                    value={
+                      formValues.minutes_per_week
+                        ? formValues.minutes_per_week
+                        : 0
+                    }
                     onChange={(e) =>
                       setFormValues({
                         ...formValues,
