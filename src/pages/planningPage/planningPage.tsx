@@ -15,15 +15,11 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Divider,
   Grid,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Menu,
-  MenuItem,
-  MenuProps,
   Paper,
   Table,
   TableBody,
@@ -31,17 +27,11 @@ import {
   TableRow,
   TextField,
   Typography,
-  alpha,
-  styled,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import EventBusyIcon from "@mui/icons-material/EventBusy";
 import TaskCardComponent from "../../components/taskCardComponent/taskCardComponent.tsx";
 import {
@@ -146,52 +136,8 @@ type DateRange = {
   endDate: Date;
 };
 
-const StyledMenu = styled((props: MenuProps) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
-  "& .MuiPaper-root": {
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
-    minWidth: 180,
-    color:
-      theme.palette.mode === "light"
-        ? "rgb(55, 65, 81)"
-        : theme.palette.grey[300],
-    boxShadow:
-      "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-    "& .MuiMenu-list": {
-      padding: "4px 0",
-    },
-    "& .MuiMenuItem-root": {
-      "& .MuiSvgIcon-root": {
-        fontSize: 18,
-        color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5),
-      },
-      "&:active": {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity,
-        ),
-      },
-    },
-  },
-}));
-
 export default function PlanningPage() {
   const { snackbarValues, setSnackbarValues } = useSnack();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [missions, setMissions] = useState<Array<IMission> | null | undefined>(
     null,
   );
@@ -233,14 +179,6 @@ export default function PlanningPage() {
     setOpenDialogForm(false);
     setFormValues({ start: new Date(), end: new Date(), nurses: [] });
     setVisitNurses([]);
-  };
-
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   const businessHours = [
@@ -796,44 +734,6 @@ export default function PlanningPage() {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12} sm={10} md={9}>
             <Paper style={{ padding: "15px" }}>
-              <div style={{ textAlign: "right" }}>
-                <Button
-                  id="demo-customized-button"
-                  aria-controls={open ? "demo-customized-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  variant="contained"
-                  disableElevation
-                  onClick={handleClick}
-                  endIcon={<FileDownloadIcon />}
-                >
-                  Exporter sous format
-                </Button>
-                <StyledMenu
-                  id="demo-customized-menu"
-                  MenuListProps={{
-                    "aria-labelledby": "demo-customized-button",
-                  }}
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose} disableRipple>
-                    <PictureAsPdfIcon />
-                    Pdf
-                  </MenuItem>
-                  <Divider sx={{ my: 0.5 }} />
-                  <MenuItem onClick={handleClose} disableRipple>
-                    <CalendarMonthIcon />
-                    GoogleCalendar
-                  </MenuItem>
-                  <Divider sx={{ my: 0.5 }} />
-                  <MenuItem onClick={handleClose} disableRipple>
-                    <InsertDriveFileIcon />
-                    Excel
-                  </MenuItem>
-                </StyledMenu>
-              </div>
               <br />
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
