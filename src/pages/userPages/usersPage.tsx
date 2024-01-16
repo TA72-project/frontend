@@ -50,9 +50,9 @@ import {
   formatNumberToTime,
   generateRandomString,
 } from "../../utils/formatUtils.ts";
-import { getAllCenters, getCenter } from "../../requests/centers.ts";
+import { getAllCenters } from "../../requests/centers.ts";
 import { useSnack } from "../../context/snackbar/snackbarContext.ts";
-import { getAllZones, getZone } from "../../requests/zones.ts";
+import { getAllZones } from "../../requests/zones.ts";
 
 interface ISelectField {
   name: string;
@@ -192,6 +192,7 @@ export default function UsersPage() {
           minutes_per_week: nurse.minutes_per_week,
           skills: nurse.skills,
         });
+        break;
       }
       case UserType.PATIENT: {
         const patient = userCopy as IPatient;
@@ -210,6 +211,7 @@ export default function UsersPage() {
           complement: patient.address.complement,
           id_zone: patient.address.id_zone,
         });
+        break;
       }
     }
   };
