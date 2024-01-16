@@ -38,8 +38,6 @@ export const createManager = async (manager: IManager) => {
 export const udpdateManager = async (manager: IManager) => {
   try {
     return await request.put("/managers/" + manager.id, {
-      id_user: manager.id_user,
-      id_center: manager.id_center,
       fname: manager.fname,
       lname: manager.lname,
       mail: manager.mail,

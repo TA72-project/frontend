@@ -125,11 +125,13 @@ export default function UsersPage() {
   );
   const [centerList, setCenterList] = useState<ISelectField[]>([]);
   const [zoneList, setZoneList] = useState<ISelectField[]>([]);
+  const [allZoneList, setAllZoneList] = useState<ISelectField[]>([]);
   const [columnList, setColumnList] = useState<GridColDef[]>(columns);
   const [openDialogForm, setOpenDialogForm] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [idUserToDelete, setIdUserToDelete] = useState<number>();
   const [formValues, setFormValues] = useState<{
+    id?: number;
     id_user?: number;
     fname: string;
     lname: string;
@@ -161,6 +163,7 @@ export default function UsersPage() {
       case UserType.MANAGER: {
         const manager = userCopy as IManager;
         setFormValues({
+          id: manager.id,
           id_user: manager.id_user,
           fname: manager.fname,
           lname: manager.lname,
@@ -172,55 +175,41 @@ export default function UsersPage() {
       }
       case UserType.NURSE: {
         const nurse = userCopy as INurse;
-        const zoneNurse = await getZone(nurse.address.id_zone);
-        if (zoneNurse) {
-          const rep = await getCenter(zoneNurse.id_center);
-          if (rep) {
-            setFormValues({
-              id_user: nurse.id_user,
-              id_center: rep.id,
-              fname: nurse.fname,
-              lname: nurse.lname,
-              mail: nurse.mail,
-              phone: nurse.phone,
-              id_address: nurse.id_address,
-              number: nurse.address.number,
-              street_name: nurse.address.street_name,
-              postcode: nurse.address.postcode,
-              city_name: nurse.address.city_name,
-              complement: nurse.address.complement,
-              id_zone: nurse.address.id_zone,
-              minutes_per_week: nurse.minutes_per_week,
-              skills: nurse.skills,
-            });
-          }
-        }
-        break;
+        setFormValues({
+          id: nurse.id,
+          id_user: nurse.id_user,
+          fname: nurse.fname,
+          lname: nurse.lname,
+          mail: nurse.mail,
+          phone: nurse.phone,
+          id_address: nurse.id_address,
+          number: nurse.address.number,
+          street_name: nurse.address.street_name,
+          postcode: nurse.address.postcode,
+          city_name: nurse.address.city_name,
+          complement: nurse.address.complement,
+          id_zone: nurse.address.id_zone,
+          minutes_per_week: nurse.minutes_per_week,
+          skills: nurse.skills,
+        });
       }
       case UserType.PATIENT: {
         const patient = userCopy as IPatient;
-        const zonePatient = await getZone(patient.address.id_zone);
-        if (zonePatient) {
-          const rep = await getCenter(zonePatient.id_center);
-          if (rep) {
-            setFormValues({
-              id_user: patient.id_user,
-              id_center: rep.id,
-              fname: patient.fname,
-              lname: patient.lname,
-              mail: patient.mail,
-              phone: patient.phone,
-              id_address: patient.id_address,
-              number: patient.address.number,
-              street_name: patient.address.street_name,
-              postcode: patient.address.postcode,
-              city_name: patient.address.city_name,
-              complement: patient.address.complement,
-              id_zone: patient.address.id_zone,
-            });
-          }
-        }
-        break;
+        setFormValues({
+          id: patient.id,
+          id_user: patient.id_user,
+          fname: patient.fname,
+          lname: patient.lname,
+          mail: patient.mail,
+          phone: patient.phone,
+          id_address: patient.id_address,
+          number: patient.address.number,
+          street_name: patient.address.street_name,
+          postcode: patient.address.postcode,
+          city_name: patient.address.city_name,
+          complement: patient.address.complement,
+          id_zone: patient.address.id_zone,
+        });
       }
     }
   };
@@ -361,6 +350,39 @@ export default function UsersPage() {
     setZoneList(zones);
   };
 
+  const getZoneList = async () => {
+    let total: number | undefined;
+    let total1: number | undefined;
+    const zones: ISelectField[] = [];
+    await getAllCenters(1, 1).then((value) => (total = value?.total));
+    if (total) {
+      await getAllCenters(1, total).then((value) => {
+        if (value) {
+          value.data.map(async (center) =>
+            {
+              await getAllZones(center.id, 1, 1).then(
+                (value) => (total1 = value?.total),
+              );
+              if (total1) {
+                await getAllZones(center.id, 1, total1).then((value) => {
+                  if (value) {
+                    value.data.map((zone) =>
+                      zones.push({
+                        name: zone.name,
+                        value: zone.id,
+                      }),
+                    );
+                  }
+                });
+              }
+              setAllZoneList(zones);
+            }
+          );
+        }
+      });
+    }
+  };
+
   const handleDeleteUser = async () => {
     try {
       if (idUserToDelete != null) {
@@ -415,6 +437,7 @@ export default function UsersPage() {
 
   useEffect(() => {
     fetchUsers(currentPage, pageSize);
+    getZoneList();
     if (
       formValues.id_center &&
       (userType == UserType.NURSE || userType == UserType.PATIENT)
@@ -458,6 +481,7 @@ export default function UsersPage() {
         try {
           if (formValues.id_user && formValues.id_center) {
             await udpdateManager({
+              id: formValues.id,
               id_user: formValues.id_user,
               id_center: formValues.id_center,
               fname: formValues.fname,
@@ -496,6 +520,7 @@ export default function UsersPage() {
         try {
           if (formValues.id_user && formValues.id_address && address) {
             await updateNurse({
+              id: formValues.id,
               minutes_per_week: formValues.minutes_per_week as number,
               fname: formValues.fname,
               lname: formValues.lname,
@@ -537,6 +562,7 @@ export default function UsersPage() {
         try {
           if (formValues.id_user && address) {
             await updatePatient({
+              id: formValues.id,
               fname: formValues.fname,
               lname: formValues.lname,
               mail: formValues.mail,
@@ -637,7 +663,7 @@ export default function UsersPage() {
       >
         <DialogTitle id="form">
           {"Formulaire de "}
-          {formValues.fname != "" ? "modification" : "création"}
+          {formValues.id ? "modification" : "création"}
         </DialogTitle>
         <form onSubmit={handleSubmit}>
           <DialogContent dividers={true}>
@@ -647,7 +673,6 @@ export default function UsersPage() {
                   <TextField
                     select
                     label="Centre"
-                    required
                     fullWidth
                     value={formValues.id_center ? formValues.id_center : ""}
                     onChange={(e) =>
@@ -684,14 +709,24 @@ export default function UsersPage() {
                       })
                     }
                   >
-                    {zoneList.map((option) => (
-                      <MenuItem
-                        key={"Zone" + option.value}
-                        value={option.value}
-                      >
-                        {option.name}
-                      </MenuItem>
-                    ))}
+                    {zoneList.length > 0 &&
+                      zoneList.map((option) => (
+                        <MenuItem
+                          key={"Zone" + option.value}
+                          value={option.value}
+                        >
+                          {option.name}
+                        </MenuItem>
+                      ))}
+                    {zoneList.length == 0 &&
+                      allZoneList.map((option) => (
+                        <MenuItem
+                          key={"Zone" + option.value}
+                          value={option.value}
+                        >
+                          {option.name}
+                        </MenuItem>
+                      ))}
                   </TextField>
                 </Grid>
               )}
@@ -767,7 +802,7 @@ export default function UsersPage() {
                     type="number"
                     required
                     fullWidth
-                    value={formValues.minutes_per_week}
+                    value={formValues.minutes_per_week ? formValues.minutes_per_week : 0}
                     onChange={(e) =>
                       setFormValues({
                         ...formValues,

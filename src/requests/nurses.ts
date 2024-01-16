@@ -69,8 +69,6 @@ export const updateNurse = async (nurse: INurse) => {
       lname: nurse.lname,
       mail: nurse.mail,
       phone: nurse.phone,
-      id_address: nurse.id_address,
-      id_user: nurse.id_user,
       address: {
         number: nurse.address.number,
         street_name: nurse.address.street_name,

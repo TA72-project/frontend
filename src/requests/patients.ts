@@ -58,8 +58,6 @@ export const updatePatient = async (patient: IPatient) => {
       lname: patient.lname,
       mail: patient.mail,
       phone: patient.phone,
-      id_user: patient.id_user,
-      id_address: patient.id_address,
       address: {
         number: patient.address.number,
         street_name: patient.address.street_name,
